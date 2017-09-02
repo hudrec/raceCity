@@ -1,4 +1,4 @@
-var FPS = 30;
+var FPS = 20;
 var ctx;
 var pista;
 var count =0;
@@ -99,7 +99,7 @@ function terminar(){
 }
 var indice = 0;
 var limite = 0;
-var rutas = [["R",10],["I",5],["R",5],["D",5],["R",10],["I",5],["R",5],["D",5],["C",1]] 
+var rutas =  [["R",20],["I",5],["R",20],["I",10],["R",10],["D",10],["C",1],]; 
 var scale=0.3
 
 function correr(){
@@ -109,9 +109,12 @@ function correr(){
 	limite = (6*speed)*(tramo[1]);
 	//alert(limite);
 	if (tramo[0] == "R"){
+		//alert(count);
+
 		ctx.drawImage(fondo,0,0,fondo.width,fondo.height-150,0,0,fondo.width,fondo.height-150);
 		pista = render_images(pistas_rectas);
-		if (ruta > limite){
+		//if (ruta > limite){
+		if (ruta >= tramo[1]*5){
 			ruta = 0;
 			count = 0;
 			indice++;
@@ -122,7 +125,8 @@ function correr(){
  			limite = (9*speed)*(tramo[1]);
 	 		
 	 		pista = render_meta(meta);
-	 		if (ruta >= limite){
+	 		//if (ruta >= limite){
+	 		if (ruta >= tramo[1]*9){
 				ruta = 0;
 				count = 0;
 				indice++;
@@ -147,10 +151,18 @@ function correr(){
 	 			if ((mod<180) && (mod>-180)) mod += 2;
 	 			else speed = 8;
 		 	}
-		 	if (ruta <= 12)	pista = render_images(entrada);
-			if ((ruta > 12) && (ruta <= 24*tramo[1])) pista = render_images(curva);
-			if (ruta > 24*tramo[1]) pista = render_images(salida);
-			if (ruta >= limite){
+		 	if (ruta < 6)	{
+		 		pista = render_images(entrada);
+		 	}
+			if ((ruta >= 6) && (ruta < (6*(tramo[1]+1)))){
+				pista = render_images(curva);
+			}
+			if (ruta >= 6*(tramo[1]+1)){
+				pista = render_images(salida);
+				
+			}	
+			//if (ruta >= limite){
+			if ((ruta+1) == ((tramo[1]+2)*6)){
 				ruta = 0;
 				count = 0;
 				indice++;
@@ -163,7 +175,6 @@ function correr(){
 		requestAnimationFrame(terminar);
 		return
 	}
-	
 	ctx.drawImage(pista,0,0);
 	count++;
 	ruta++;

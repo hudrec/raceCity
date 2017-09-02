@@ -2,7 +2,7 @@
 function render_images(images){
 	//alert(String(count) + " - " + String(ruta));
 	pista = null;
-	switch(true){
+	/*switch(true){
 		case count < speed*1:
 			pista = images[0];
 			//mod += 1;
@@ -32,13 +32,17 @@ function render_images(images){
 			break;
 		default:
 			break;
+	}*/
+	if (count == 5){
+		count = -1;
+		return images[5];
 	}
-	return pista;
+	return images[count];
 }
 function render_meta(images){
 	//alert(String(count) + " - " + String(ruta));
 	pista = null;
-	switch(true){
+	/*switch(true){
 		case count < speed*1:
 			pista = images[0];
 			break;
@@ -72,8 +76,19 @@ function render_meta(images){
 			break;
 		default:
 			break;
+	}*/
+	if (count == 8){
+		count = -1;
+		return images[8];
 	}
-	return pista;
+	return images[count];
+	/*for (var i = 0; i < images.length; i++) {
+		ctx.drawImage(images[i],0,0);
+		ctx.drawImage(images[i],0,0);
+		ctx.drawImage(images[i],0,0);
+		ctx.drawImage(images[i],0,0);
+	}*/
+	//return pista;
 }
 
 function render_car(cars,code){
