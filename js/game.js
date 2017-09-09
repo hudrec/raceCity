@@ -1,15 +1,18 @@
 var FPS = 20;
+var ctx1;
 var ctx;
 var pista;
+var pista1;
 var count =0;
 var ruta =0;
-var count_a =0;
+//var count_a =0;
 var left_c =0;
+var left_c1 =0;
 var right_c =0;
+var right_c1 =0;
 var mod =0;
 var angle =0;
 var x;
-var x1;
 var y;
 var fondo = new Image();
 fondo.src = "img/fondo1.png";
@@ -40,7 +43,9 @@ var img = new Image();
 img.src = "img/car.png";
 var buffer;
 var left=false;
+var left1=false;
 var right=false;
+var right1=false;
 var curva_izq = [];
 var salida_curva_izq= [];
 var entrada_curva_izq= [];
@@ -76,6 +81,8 @@ function inicializar(){
 }
 var term = 0;
 var alejar = 0;
+var x1;
+var y1;
 function terminar(){
 	term++;
 	ter_id = requestAnimationFrame(terminar);
@@ -92,6 +99,29 @@ function terminar(){
 	if (term > 12){
 		cancelAnimationFrame(ter_id);
 		ctx.drawImage(meta[8],0,0);
+	}
+	
+	
+	
+}
+var term1 = 0;
+var alejar1 = 0;
+function terminar1(){
+	term1++;
+	ter_id1 = requestAnimationFrame(terminar1);
+	
+	if (term1 && 1){
+		ctx1.drawImage(meta[8],0,0);
+		alejar1 = term*13;
+		if (term1 & speed1) car1 = auto1;
+		else car1 = auto2;
+		x1 = largo*(1-term/10) ;
+		y1 = ancho*(1-term/10) ;
+	}
+	ctx1.drawImage(car1,pista1.width/2 + mod-x/2,pista1.height-y1-alejar,x1,y1); 
+	if (term1 > 12){
+		cancelAnimationFrame(ter_id1);
+		ctx1.drawImage(meta[8],0,0);
 	}
 	
 	
@@ -253,8 +283,114 @@ function correr(){
 		}
 	}*/
 }
+var speed1=2;
+var indice1 = 0;
+var limite1 = 0;
+var rutas1 = [["R",20],["D",5],["R",20],["R",10],["R",10],["I",10],["C",1],]; 
+var scale1 = 0.3
+var count1 = 0;
+var ruta1 = 0;
+var mod1 =0;
 
-function draw() {
+function manejar(){
+	//
+	//req_id = requestAnimationFrame(correr);
+	tramo1 = rutas1[indice1] ;
+	limite1 = (6*speed1)*(tramo1[1]);
+	//alert(limite);
+	if (tramo1[0] == "R"){
+		//alert(count);
+
+		ctx1.drawImage(fondo,0,0,fondo.width,fondo.height-150,0,0,fondo.width,fondo.height-150);
+		pista1 = render_images1(pistas_rectas);
+		//if (ruta > limite){
+		if (ruta1 >= tramo1[1]*5){
+			ruta1 = 0;
+			count1 = 0;
+			indice1++;
+		}
+ 	}
+ 	else {
+ 		if (tramo1[0] == "C"){
+ 			limite1 = (9*speed1)*(tramo1[1]);
+	 		
+	 		pista1 = render_meta1(meta);
+	 		//if (ruta >= limite){
+	 		if (ruta1 >= tramo1[1]*9){
+				ruta1 = 0;
+				count1 = 0;
+				indice1++;
+			}
+			
+	 	}
+	 	else{
+	 		limite1 = (6*speed1)*(tramo1[1]+2);
+	 		if (tramo1[0] == "D"){
+	 			ctx1.drawImage(fondo,ruta1,0,fondo.width,fondo.height,0,0,fondo.width,fondo.height);
+	 			entrada1 = entrada_curva_der;
+	 			curva1 = curva_der;
+	 			salida1 = salida_curva_der;
+	 			if ((mod1<180) && (mod1>-180)) mod1 -= 2;
+	 			else speed1 = 8;
+		 	}
+		 	else{
+		 		ctx1.drawImage(fondo,pista.width-ruta,0,fondo.width,fondo.height,0,0,fondo.width,fondo.height);
+		 		entrada1 = entrada_curva_izq;
+	 			curva1 = curva_izq;
+	 			salida1 = salida_curva_izq;
+	 			if ((mod1<180) && (mod1>-180)) mod1 += 2;
+	 			else speed1 = 8;
+		 	}
+		 	if (ruta1 < 6)	{
+		 		pista1 = render_images1(entrada1);
+		 	}
+			if ((ruta1 >= 6) && (ruta1 < (6*(tramo1[1]+1)))){
+				pista1 = render_images1(curva1);
+			}
+			if (ruta1 >= 6*(tramo1[1]+1)){
+				pista1 = render_images1(salida1);
+				
+			}	
+			//if (ruta >= limite){
+			if ((ruta1+1) == ((tramo1[1]+2)*6)){
+				ruta1 = 0;
+				count1 = 0;
+				indice1++;
+			}
+		}
+ 	}
+ 	
+ 	if (indice1 == rutas1.length){
+		//cancelAnimationFrame(req_id);
+		requestAnimationFrame(terminar1);
+		return
+	}
+	ctx1.drawImage(pista1,0,0);
+	count1++;
+	ruta1++;
+	//ctx.drawImage(auto1,pista1.width/2 + mod-buffer.width/2,pista1.height-buffer.height,auto1.width*scale,auto1.height*scale);
+	largo1 = auto1.width*scale1;
+	ancho1 = auto1.height*scale1;
+
+	if (left1){
+
+		car1 = render_car1(cars_izq, "I");
+		alert(car1);
+	}
+	else{
+		if (right1) car1 = render_car1(cars_der, "D");
+		else { 
+			if (ruta1 & speed1) car1 = auto1;
+			else car1 = auto2;
+		}
+	}
+	ctx1.drawImage(car1,pista1.width/2 + mod1-largo1/2,pista1.height-ancho1,largo1,ancho1);
+
+	setTimeout(manejar, 1000/FPS); 
+
+		
+}
+/*function draw() {
 	ctx = document.getElementById("auto").getContext("2d");
 	requestAnimationFrame(draw);	
 	var pista;
@@ -376,30 +512,53 @@ function draw() {
 	//ctx.drawImage(buffer,pista1.width/2 + mod-buffer.width/2,pista1.height-buffer.height);
 	
 	
-}
+}*/
 
 window.connectManager = new connectsdk.ConnectManager();
 
 window.connectManager.on("message", function(data){
-	tecla = data.message.jugador;
-	if(data.message.accion == "mover")
-	{
-        switch (tecla){
-            case "izquierda" : 
-                mod -= 10; 
-                left = true; 
-                break;
-            //case 38 : 
-            //    cuadrado.style.top = situacionX-220+"px" ;break;
-            case "derecha" :  
-        		mod += 10 ;
-        		right = true;
-        		break;
-            //case 40 : 
-            //    cuadrado.style.top = situacionX-180+"px" ;break;
-        	default :alert("Se ha equivocado, debe pulsar las flechas del teclado");
-        }
-    }
+	if (data.message.jugador){
+		tecla = data.message.jugador;
+		if(data.message.accion == "mover")
+		{
+	        switch (tecla){
+	            case "izquierda" : 
+	                mod -= 10; 
+	                left = true; 
+	                break;
+	            //case 38 : 
+	            //    cuadrado.style.top = situacionX-220+"px" ;break;
+	            case "derecha" :  
+	        		mod += 10 ;
+	        		right = true;
+	        		break;
+	            //case 40 : 
+	            //    cuadrado.style.top = situacionX-180+"px" ;break;
+	        	default :alert("Se ha equivocado, debe pulsar las flechas del teclado");
+	        }
+	    }
+	}
+	if (data.message.jugador1){
+		tecla1 = data.message.jugador1;
+		if(data.message.accion1 == "mover")
+		{
+	        switch (tecla){
+	            case "izquierda" : 
+	                mod1 -= 10; 
+	                left1 = true; 
+	                break;
+	            //case 38 : 
+	            //    cuadrado.style.top = situacionX-220+"px" ;break;
+	            case "derecha" :  
+	        		mod1 += 10 ;
+	        		right1 = true;
+	        		break;
+	            //case 40 : 
+	            //    cuadrado.style.top = situacionX-180+"px" ;break;
+	        	default :alert("Se ha equivocado, debe pulsar las flechas del teclado");
+	        }
+	    }
+	}      
 });
 
 window.connectManager.init();
@@ -410,10 +569,12 @@ function init(){
 	/*chofer = new Image();
 	chofer.src = "img/chofer1.png";*/
 	ctx = document.getElementById("auto").getContext("2d");
+	ctx1 = document.getElementById("auto1").getContext("2d");
 	//var req_id = requestAnimationFrame(correr);
 	setTimeout(function(){
 		document.body.style.backgroundImage='none';
 		correr();
+		manejar();
 		//$("#chofer").attr("src", "img/chofer1.png");
 		//ctx.drawImage(chofer,0,0);
 
