@@ -1,11 +1,12 @@
 
-function render_images(images){
+function render_images(images, data_count){
 	pista = null;
-	if (count == 5){
-		count = -1;
-		return images[5];
+	if (data_count.count == 5){
+        data_count.count = -1;
+
+        return images[5];
 	}
-	return images[count];
+	return images[data_count.count];
 }
 function render_images1(images){
 	pista1 = null;
@@ -15,14 +16,15 @@ function render_images1(images){
 	}
 	return images[count1];
 }
-function render_meta(images){
+function render_meta(images,data_count){
+	alert("TERMINAR");
 	//alert(String(count) + " - " + String(ruta));
 	pista = null;
-	if (count == 8){
-		count = -1;
+	if (data_count.count == 8){
+        data_count.count = -1;
 		return images[8];
 	}
-	return images[count];
+	return images[data_count.count];
 	
 }
 function render_meta1(images){
