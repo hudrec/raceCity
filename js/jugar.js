@@ -70,6 +70,7 @@ function correr(contexto,jugador){
         //requestAnimationFrame(terminar);
         return
     }
+    //dibuja la pista
     contexto.drawImage(pista,0,0,pista.width,pista.height,0,window.innerHeight/5,window.innerWidth,window.innerHeight/2-220);
     jugador.count++;
     jugador.ruta++;
@@ -89,6 +90,7 @@ function correr(contexto,jugador){
             else car = auto2;
         }
     }
+    // dibuja el carro
     contexto.drawImage(car,window.innerWidth/2+mod-largo/2,pista.height/2+100,largo,ancho);
     setTimeout(correr, 1000/FPS,contexto, jugador);
 

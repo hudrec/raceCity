@@ -123,7 +123,7 @@ function terminar1(){
 }
 // var indice = 0;
 var limite = 0;
-var rutas =  [["R",10],["D",10],["R",10]];
+var rutas =  [["R",10],["D",10], ["R",10],["I",10]];
 var scale=0.7
 
 
@@ -243,6 +243,7 @@ var jugador2 = {ruta : 0,
 	name:2
 };
 function init(){
+    //
 	/*chofer = new Image();
 	chofer.src = "img/chofer1.png";*/
 	//var chofer = new Image();
@@ -288,5 +289,22 @@ function init(){
         // correr(ctx1,jugador2);
 
         // manejar();
+                $('#auto')[0].width = window.innerWidth;
+                $('#auto')[0].height = window.innerHeight/2;
+                ctx = document.getElementById("auto").getContext("2d");
+
+        var nuevoJugador1 = raceCityJugador(ctx, "Ider", "rojo", []);
+        nuevoJugador1.dibujar(0);
+        nuevoJugador1.jugar();
+
+                $('#auto1')[0].width = window.innerWidth;
+                $('#auto1')[0].height = window.innerHeight/2;
+                ctx1 = document.getElementById("auto1").getContext("2d");
+                ctx1.drawImage(fondo,0,0,fondo.width,fondo.height,0,0,fondo.width,window.innerHeight/5);
+
+                document.body.style.backgroundImage='none';
+
+                //correr(ctx,jugador1);
+                correr(ctx1,jugador2);
     },3000)
 }
