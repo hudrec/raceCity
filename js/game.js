@@ -124,7 +124,7 @@ function terminar1(){
 // var indice = 0;
 var limite = 0;
 var rutas =  [["R",10],["D",10],["R",10]];
-var scale=0.6
+var scale=0.7
 
 
 var speed1=2;
@@ -178,22 +178,49 @@ window.connectManager.on("message", function(data){
 	    }
 	}
 	if (data.message.entrar == "jugador"){
-        //document.body.style.backgroundImage='none';
-		//var chofer = new Image();
-		//chofer.src = "img/chofer1.png";
-		//main = document.getElementById("auto").getContext("2d");
-		//main.drawImage(chofer,800,250);
-		
-		//$("#listaJugadores").append('<span style="color: white;margin-left: 880px;"><h1>{data.message.name}</h1></span>');
-        document.body.style.backgroundImage='url("img/fondo-menu.png")';
+        $("body").css('background-image','url("img/fondotv.png")');
+
+        var chofer = new Image();
+        chofer.src = "img/chofer1.png";
+        ctx = document.getElementById("auto").getContext("2d");
+        chofer.onload = function(){
+            ctx.drawImage(chofer,480,140);
+            ctx.font="60px Georgia";
+            ctx.fillStyle = "#fff";
+            ctx.fillText(data.message.name,480,500)
+        };
+
+        var iniciar = new Image();
+        iniciar.src = "img/forms/iniciar.png";
+        iniciar.onload = function(){
+            ctx.drawImage(iniciar,900,550);
+        };
+        var opciones = new Image();
+        opciones.src = "img/forms/opciones.png";
+        opciones.onload = function(){
+            ctx.drawImage(opciones,900,600);
+
+        };
+
+
+
         //alert("NUEVO JUGADOR");
 		//main.drawImage(chofer,500,800);
 	}
 	if (data.message.jugar){
+        $('#auto')[0].width = window.innerWidth;
+        $('#auto1')[0].width = window.innerWidth;
+        $('#auto')[0].height = window.innerHeight/2;
+        $('#auto1')[0].height = window.innerHeight/2;
+        ctx = document.getElementById("auto").getContext("2d");
+        ctx1 = document.getElementById("auto1").getContext("2d");
+        ctx.drawImage(fondo,0,0,fondo.width,fondo.height,0,0,fondo.width,window.innerHeight/5);
+        ctx1.drawImage(fondo,0,0,fondo.width,fondo.height,0,0,fondo.width,window.innerHeight/5);
+
+        correr(ctx,jugador1);
+        correr(ctx1,jugador2);
         document.body.style.backgroundImage='none';
 		//$("#listaJugadores").hide();
-		ctx = document.getElementById("auto").getContext("2d");
-		ctx1 = document.getElementById("auto1").getContext("2d");
 
 		correr();
 
@@ -245,23 +272,20 @@ function init(){
 
 	//},3000);
 	// TEST
+
+
+    // $("#listaJugadores").append('<span style="color: white;margin-left: 880px;"><h1>{data.message.name}</h1></span>');
+
     setTimeout(function(){
-		$("#listaJugadores").hide();
-        document.body.style.backgroundImage='none';
-        $('#auto')[0].width = window.innerWidth;
-        $('#auto1')[0].width = window.innerWidth;
-        $('#auto')[0].height = window.innerHeight/2;
-        $('#auto1')[0].height = window.innerHeight/2;
-		ctx = document.getElementById("auto").getContext("2d");
-		ctx1 = document.getElementById("auto1").getContext("2d");
-		ctx.drawImage(fondo,0,0,fondo.width,fondo.height,0,0,fondo.width,window.innerHeight/5);
-		ctx1.drawImage(fondo,0,0,fondo.width,fondo.height,0,0,fondo.width,window.innerHeight/5);
+		$("body").css('background-image','url("img/esperando.png")')
+        // ctx.drawImage(fondo,0,0,fondo.width,fondo.height,0,0,fondo.width,window.innerHeight/5);
+		// ctx1.drawImage(fondo,0,0,fondo.width,fondo.height,0,0,fondo.width,window.innerHeight/5);
 
         // ctx.drawImage(fondo,0,0,fondo.width,fondo.height,0,0,fondo.width,fondo.height);
         // ctx1.drawImage(fondo,0,0,fondo.width,fondo.height,0,0,fondo.width,fondo.height);
 
-        correr(ctx,jugador1);
-        correr(ctx1,jugador2);
+        // correr(ctx,jugador1);
+        // correr(ctx1,jugador2);
 
         // manejar();
     },3000)

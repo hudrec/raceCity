@@ -70,7 +70,7 @@ function correr(contexto,jugador){
         //requestAnimationFrame(terminar);
         return
     }
-    contexto.drawImage(pista,0,0,pista.width,pista.height,0,window.innerHeight/5,window.innerWidth,window.innerHeight/2-120);
+    contexto.drawImage(pista,0,0,pista.width,pista.height,0,window.innerHeight/5,window.innerWidth,window.innerHeight/2-220);
     jugador.count++;
     jugador.ruta++;
     //contexto.drawImage(auto1,pista1.width/2 + mod-buffer.width/2,pista1.height-buffer.height,auto1.width*scale,auto1.height*scale);
