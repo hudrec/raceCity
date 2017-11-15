@@ -17,17 +17,17 @@ var cars_der = [];
 var pistas_rectas = [];
 
 for (var i = 5; i >= 0; i--) {
-	pistas_rectas[i] = new Image();
-	pistas_rectas[i].src = "img/pista_recta/pista"+ String(i+1)+".png";
+    pistas_rectas[i] = new Image();
+    pistas_rectas[i].src = "img/pista_recta/pista"+ String(i+1)+".png";
 }
 var pista1 = pistas_rectas[0]
 for (var i = 3; i >= 0; i--) {
-	cars_izq[i] = new Image();
-	cars_izq[i].src = "img/cars_izq/auto_iz"+ String(i+1)+".png";
+    cars_izq[i] = new Image();
+    cars_izq[i].src = "img/cars_izq/auto_iz"+ String(i+1)+".png";
 }
 for (var i = 3; i >= 0; i--) {
-	cars_der[i] = new Image();
-	cars_der[i].src = "img/cars_der/auto_de"+ String(i+1)+".png";
+    cars_der[i] = new Image();
+    cars_der[i].src = "img/cars_der/auto_de"+ String(i+1)+".png";
 }
 var auto1 = new Image();
 auto1.src = "img/Auto-1.png";
@@ -46,80 +46,80 @@ var entrada_curva_izq= [];
 var meta= [];
 
 for (var i = 8; i >= 0; i--) {
-	meta[i] = new Image();
-	meta[i].src = "img/meta/meta_"+ String(i+1)+".png";
+    meta[i] = new Image();
+    meta[i].src = "img/meta/meta_"+ String(i+1)+".png";
 }
 
 for (var i = 5; i >= 0; i--) {
-	curva_izq[i] = new Image();
-	curva_izq[i].src = "img/curva_izq/Curvamovimiento"+ String(i+1)+".png";
-}
-
-
-for (var i = 5; i >= 0; i--) {
-	salida_curva_izq[i] = new Image();
-	salida_curva_izq[i].src = "img/salida_curva_izq/Saliendodelacurva"+ String(i+1)+".png";
+    curva_izq[i] = new Image();
+    curva_izq[i].src = "img/curva_izq/Curvamovimiento"+ String(i+1)+".png";
 }
 
 
 for (var i = 5; i >= 0; i--) {
-	entrada_curva_izq[i] = new Image();
-	entrada_curva_izq[i].src = "img/entrada_curva_izq/Entrandoalacurva"+ String(i+1)+".png";;
+    salida_curva_izq[i] = new Image();
+    salida_curva_izq[i].src = "img/salida_curva_izq/Saliendodelacurva"+ String(i+1)+".png";
+}
+
+
+for (var i = 5; i >= 0; i--) {
+    entrada_curva_izq[i] = new Image();
+    entrada_curva_izq[i].src = "img/entrada_curva_izq/Entrandoalacurva"+ String(i+1)+".png";;
 }
 
 var speed=2;
 
 
 function inicializar(){
-	count = 0;
+    count = 0;
 }
 var term = 0;
 var alejar = 0;
 var x1;
 var y1;
 function terminar(){
-	term++;
-	ter_id = requestAnimationFrame(terminar);
-	
-	if (term && 1){
-		ctx.drawImage(meta[8],0,0);
-		alejar = term*13;
-		if (term & speed) car = auto1;
-		else car = auto2;
-		x = largo*(1-term/10) ;
-		y = ancho*(1-term/10) ;
-	}
-	ctx.drawImage(car,pista1.width/2 + mod-x/2,pista1.height-y-alejar,x,y); 
-	if (term > 12){
-		cancelAnimationFrame(ter_id);
-		ctx.drawImage(meta[8],0,0);
-	}
-	
-	
-	
+    term++;
+    ter_id = requestAnimationFrame(terminar);
+
+    if (term && 1){
+        ctx.drawImage(meta[8],0,0);
+        alejar = term*13;
+        if (term & speed) car = auto1;
+        else car = auto2;
+        x = largo*(1-term/10) ;
+        y = ancho*(1-term/10) ;
+    }
+    ctx.drawImage(car,pista1.width/2 + mod-x/2,pista1.height-y-alejar,x,y); 
+    if (term > 12){
+        cancelAnimationFrame(ter_id);
+        ctx.drawImage(meta[8],0,0);
+    }
+
+
+
 }
 var term1 = 0;
 var alejar1 = 0;
 function terminar1(){
-	term1++;
-	ter_id1 = requestAnimationFrame(terminar1);
-	
-	if (term1 && 1){
-		ctx1.drawImage(meta[8],0,0);
-		alejar1 = term*13;
-		if (term1 & speed1) car1 = auto1;
-		else car1 = auto2;
-		x1 = largo*(1-term/10) ;
-		y1 = ancho*(1-term/10) ;
-	}
-	ctx1.drawImage(car1,pista1.width/2 + mod-x/2,pista1.height-y1-alejar,x1,y1); 
-	if (term1 > 12){
-		cancelAnimationFrame(ter_id1);
-		ctx1.drawImage(meta[8],0,0);
-	}
-	
-	
-	
+    term1++;
+    ter_id1 = requestAnimationFrame(terminar1);
+
+    if (term1 && 1){
+        ctx1.drawImage(meta[8],0,0);
+        alejar1 = term*13;
+        if (term1 & speed1) car1 = auto1;
+        else car1 = auto2;
+        x1 = largo*(1-term/10) ;
+        y1 = ancho*(1-term/10) ;
+    }
+    ctx1.drawImage(car1,pista1.width/2 + mod-x/2,pista1.height-y1-alejar,x1,y1); 
+    if (term1 > 12){
+        cancelAnimationFrame(ter_id1);
+        ctx1.drawImage(meta[8],0,0);
+    }
+
+
+
 }
 // var indice = 0;
 var limite = 0;
@@ -135,49 +135,49 @@ var mod1 =0;
 window.connectManager = new connectsdk.ConnectManager();
 
 window.connectManager.on("message", function(data){
-	if (data.message.jugador){
-		tecla = data.message.jugador;
-		if(data.message.accion == "mover")
-		{
-	        switch (tecla){
-	            case "izquierda" : 
-	                mod -= 10; 
-	                left = true; 
-	                break;
-	            //case 38 : 
-	            //    cuadrado.style.top = situacionX-220+"px" ;break;
-	            case "derecha" :  
-	        		mod += 10 ;
-	        		right = true;
-	        		break;
-	            //case 40 : 
-	            //    cuadrado.style.top = situacionX-180+"px" ;break;
-	        	default :alert("Se ha equivocado, debe pulsar las flechas del teclado");
-	        }
-	    }
-	}
-	if (data.message.jugador1){
-		tecla1 = data.message.jugador1;
-		if(data.message.accion1 == "mover")
-		{
-	        switch (tecla){
-	            case "izquierda" : 
-	                mod1 -= 10; 
-	                left1 = true; 
-	                break;
-	            //case 38 : 
-	            //    cuadrado.style.top = situacionX-220+"px" ;break;
-	            case "derecha" :  
-	        		mod1 += 10 ;
-	        		right1 = true;
-	        		break;
-	            //case 40 : 
-	            //    cuadrado.style.top = situacionX-180+"px" ;break;
-	        	default :alert("Se ha equivocado, debe pulsar las flechas del teclado");
-	        }
-	    }
-	}
-	if (data.message.entrar == "jugador"){
+    if (data.message.jugador){
+        tecla = data.message.jugador;
+        if(data.message.accion == "mover")
+        {
+            switch (tecla){
+                case "izquierda" : 
+                    mod -= 10; 
+                    left = true; 
+                    break;
+                    //case 38 : 
+                    //    cuadrado.style.top = situacionX-220+"px" ;break;
+                case "derecha" :  
+                    mod += 10 ;
+                    right = true;
+                    break;
+                    //case 40 : 
+                    //    cuadrado.style.top = situacionX-180+"px" ;break;
+                default :alert("Se ha equivocado, debe pulsar las flechas del teclado");
+            }
+        }
+    }
+    if (data.message.jugador1){
+        tecla1 = data.message.jugador1;
+        if(data.message.accion1 == "mover")
+        {
+            switch (tecla){
+                case "izquierda" : 
+                    mod1 -= 10; 
+                    left1 = true; 
+                    break;
+                    //case 38 : 
+                    //    cuadrado.style.top = situacionX-220+"px" ;break;
+                case "derecha" :  
+                    mod1 += 10 ;
+                    right1 = true;
+                    break;
+                    //case 40 : 
+                    //    cuadrado.style.top = situacionX-180+"px" ;break;
+                default :alert("Se ha equivocado, debe pulsar las flechas del teclado");
+            }
+        }
+    }
+    if (data.message.entrar == "jugador"){
         $("body").css('background-image','url("img/fondotv.png")');
 
         var chofer = new Image();
@@ -205,9 +205,9 @@ window.connectManager.on("message", function(data){
 
 
         //alert("NUEVO JUGADOR");
-		//main.drawImage(chofer,500,800);
-	}
-	if (data.message.jugar){
+        //main.drawImage(chofer,500,800);
+    }
+    if (data.message.jugar){
         $('#auto')[0].width = window.innerWidth;
         $('#auto1')[0].width = window.innerWidth;
         $('#auto')[0].height = window.innerHeight/2;
@@ -220,12 +220,12 @@ window.connectManager.on("message", function(data){
         correr(ctx,jugador1);
         correr(ctx1,jugador2);
         document.body.style.backgroundImage='none';
-		//$("#listaJugadores").hide();
+        //$("#listaJugadores").hide();
 
-		correr();
+        correr();
 
-		manejar();
-	}      
+        manejar();
+    }      
 });
 
 window.connectManager.init();
@@ -233,54 +233,54 @@ var terreno = new Image();
 terreno.src = "img/terreno.jpg";
 //setInterval(keypress_handler, 1000);
 var jugador1 = {ruta : 0,
-	count : 0,
-	indice : 0,
-	name:1
+    count : 0,
+    indice : 0,
+    name:1
 };
 var jugador2 = {ruta : 0,
     count : 0,
     indice : 0,
-	name:2
+    name:2
 };
 function init(){
     //
-	/*chofer = new Image();
-	chofer.src = "img/chofer1.png";*/
-	//var chofer = new Image();
-	//chofer.src = "img/chofer1.png";
-	//main = document.getElementById("auto").getContext("2d");
+    /*chofer = new Image();
+    chofer.src = "img/chofer1.png";*/
+    //var chofer = new Image();
+    //chofer.src = "img/chofer1.png";
+    //main = document.getElementById("auto").getContext("2d");
     // $("#listaJugadores").hide();
     // document.body.style.backgroundImage='none';
-	// ctx = document.getElementById("auto").getContext("2d");
-	// ctx1 = document.getElementById("auto1").getContext("2d");
+    // ctx = document.getElementById("auto").getContext("2d");
+    // ctx1 = document.getElementById("auto1").getContext("2d");
     // ctx.drawImage(fondo,0,0,fondo.width,fondo.height,0,0,fondo.width,fondo.height);
     // ctx1.drawImage(fondo,0,0,fondo.width,fondo.height,0,0,fondo.width,fondo.height);
     //
     // ctx.drawImage(terreno,0,350);
     // ctx1.drawImage(terreno,0,350);
-	// ctx1.drawImage(terreno,0,0);
-	//var req_id = requestAnimationFrame(correr);
-	//setTimeout(function(){
-        //$("#listaJugadores").show()
-    	//document.body.style.backgroundImage='url("img/menu.png")';
+    // ctx1.drawImage(terreno,0,0);
+    //var req_id = requestAnimationFrame(correr);
+    //setTimeout(function(){
+    //$("#listaJugadores").show()
+    //document.body.style.backgroundImage='url("img/menu.png")';
 
-		//main.drawImage(chofer,400,250);
-        //correr();
-        //manejar();
+    //main.drawImage(chofer,400,250);
+    //correr();
+    //manejar();
 
-		//$("#chofer").attr("src", "img/chofer1.png");
-		//ctx.drawImage(chofer,0,0);
+    //$("#chofer").attr("src", "img/chofer1.png");
+    //ctx.drawImage(chofer,0,0);
 
-	//},3000);
-	// TEST
+    //},3000);
+    // TEST
 
 
     // $("#listaJugadores").append('<span style="color: white;margin-left: 880px;"><h1>{data.message.name}</h1></span>');
 
     setTimeout(function(){
-		$("body").css('background-image','url("img/esperando.png")')
+        $("body").css('background-image','url("img/esperando.png")')
         // ctx.drawImage(fondo,0,0,fondo.width,fondo.height,0,0,fondo.width,window.innerHeight/5);
-		// ctx1.drawImage(fondo,0,0,fondo.width,fondo.height,0,0,fondo.width,window.innerHeight/5);
+        // ctx1.drawImage(fondo,0,0,fondo.width,fondo.height,0,0,fondo.width,window.innerHeight/5);
 
         // ctx.drawImage(fondo,0,0,fondo.width,fondo.height,0,0,fondo.width,fondo.height);
         // ctx1.drawImage(fondo,0,0,fondo.width,fondo.height,0,0,fondo.width,fondo.height);
@@ -289,22 +289,43 @@ function init(){
         // correr(ctx1,jugador2);
 
         // manejar();
-                $('#auto')[0].width = window.innerWidth;
-                $('#auto')[0].height = window.innerHeight/2;
-                ctx = document.getElementById("auto").getContext("2d");
+        $('#auto')[0].width = window.innerWidth;
+        $('#auto')[0].height = window.innerHeight/2;
+        ctx = document.getElementById("auto").getContext("2d");
 
         var nuevoJugador1 = raceCityJugador(ctx, "Ider", "rojo", []);
         nuevoJugador1.dibujar(0);
+        nuevoJugador1.useKeyboard();
         nuevoJugador1.jugar();
 
-                $('#auto1')[0].width = window.innerWidth;
-                $('#auto1')[0].height = window.innerHeight/2;
-                ctx1 = document.getElementById("auto1").getContext("2d");
-                ctx1.drawImage(fondo,0,0,fondo.width,fondo.height,0,0,fondo.width,window.innerHeight/5);
+        $('#auto1')[0].width = window.innerWidth;
+        $('#auto1')[0].height = window.innerHeight/2;
+        ctx1 = document.getElementById("auto1").getContext("2d");
+        ctx1.drawImage(fondo,0,0,fondo.width,fondo.height,0,0,fondo.width,window.innerHeight/5);
 
-                document.body.style.backgroundImage='none';
+        document.body.style.backgroundImage='none';
 
-                //correr(ctx,jugador1);
-                correr(ctx1,jugador2);
+        //correr(ctx,jugador1);
+        correr(ctx1,jugador2);
     },3000)
 }
+
+
+//window.onload=function(){document.onkeydown=desplazar};
+//function desplazar(objeto){
+    //var tecla = objeto.which;
+
+    //var situacionY = document.getElementById("cuadrado").offsetLeft;
+    //var situacionX = document.getElementById("cuadrado").offsetTop;
+    //switch (tecla){
+        //case 37 :   
+            //cuadrado.style.left = situacionY-220+"px" ; break;
+        //case 38 : 
+            //cuadrado.style.top = situacionX-220+"px" ;break;
+        //case 39 :  
+            //cuadrado.style.left = situacionY-180+"px" ;break;
+        //case 40 : 
+            //cuadrado.style.top = situacionX-180+"px" ;break;
+        //default :alert("Se ha equivocado, debe pulsar las flechas del teclado");
+    //}
+//}

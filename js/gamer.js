@@ -39,9 +39,11 @@ var raceCityJugador = function(ctx, nombre, color, competidores){
 
     //manejo de la aceleracion
     var velocidadActual = 0;
+    var velocidadMinima = 20;
     var velocidadMaxima = 100;
     var velocidadIncremento = 10;
-    var estaAcelerando = true;
+    var arranco = false;
+    var estaAcelerando = false;
 
     // limites de la pista
     var maximoDerecha = 400;
@@ -52,15 +54,101 @@ var raceCityJugador = function(ctx, nombre, color, competidores){
     var constanteMovimiento = 8; //jala x numero cuando entra a la curva
     var constanteManejo = 8; //jala x numero cuando entra a la curva
 
-    var moverDerecha = function() {
+    var arrancar = function() {
+        if (!arranco){
+            arranco = true;
+            acelerar();
+        }
     }
+
+    var acelerar = function() {
+        if (!estaAcelerando){
+            estaAcelerando = true;
+            jugar();
+        }
+    }
+
+    var moverRecto = function() {
+        giro="";
+    }
+
+    var moverDerecha = function() {
+        if (arranco && (posicionX<maximoDerecha) && (posicionX>=maximoIzquierda-50)){
+            posicionX += constanteMovimiento * 1.5;
+            giro="derecha";
+        }
+    }
+
     var moverIzquierda = function() {
+        if (arranco && (posicionX<=maximoDerecha+50) && (posicionX>maximoIzquierda)){
+            posicionX -= constanteMovimiento * 1.5;
+            giro="izquierda";
+        }
+    }
+
+    var useKeyboard = function(e){
+        var _this = this
+        document.addEventListener('keydown', function(evt){
+            var tecla = evt.which;
+            console.log(tecla)
+            switch (tecla){
+                case 38:
+                    arrancar()
+                    break;
+                case 37:
+                    moverIzquierda();
+                    break;
+                case 39:
+                    moverDerecha();
+                    break;
+            }
+        });
+
+        document.addEventListener('keyup', function(evt){
+            var tecla = evt.which;
+            console.log(tecla)
+            switch (tecla){
+                case 38:
+                    //frenar()
+                    break;
+                case 37:
+                case 39:
+                    moverRecto();
+                    break;
+            }
+        });
     }
 
     var imagenCarro = function(indice) {
+        var ciclosPorEtapa = 2;
+        var result;
+        var realIndex;
         if(giro == ""){
-            return raceCityCarImages.autoRecto[indice % 2];
+            if (indiceGiro < 0){
+                indiceGiro++;
+            } else if(indiceGiro > 0){
+                indiceGiro--;
+            }
+        } else if(giro == "derecha"){
+            if (indiceGiro < 0 || Math.abs(indiceGiro)  <= raceCityCarImages.moverDerecha.length){
+                indiceGiro++;
+            }
+        } else if(giro == "izquierda"){
+            if (indiceGiro > 0 || Math.abs(indiceGiro)  <= raceCityCarImages.moverIzquierda.length){
+                indiceGiro--;
+            }
         }
+
+        if (indiceGiro > 0){
+            realIndex = Math.ceil(indiceGiro/ciclosPorEtapa) + (indice % 2) - 1;
+            result = raceCityCarImages.moverDerecha[realIndex];
+        } else if(indiceGiro < 0){
+            realIndex = Math.ceil(Math.abs(indiceGiro)/ciclosPorEtapa) + (indice % 2) - 1;
+            result = raceCityCarImages.moverIzquierda[realIndex];
+        } else {
+            result =  raceCityCarImages.autoRecto[indice % 2];
+        }
+        return result;
     }
 
     var dibujarCarro = function(indice, pista){
@@ -100,6 +188,10 @@ var raceCityJugador = function(ctx, nombre, color, competidores){
 
         if ((posicionX>desaceleraDerecha) || (posicionX<desaceleraIzquierda)){
             estaAcelerando = false;
+        } else if (arranco){
+            estaAcelerando = true;
+        } else {
+            estaAcelerando = false;
         }
 
     }
@@ -119,7 +211,7 @@ var raceCityJugador = function(ctx, nombre, color, competidores){
         //aceleracion
         if(estaAcelerando && velocidadActual < velocidadMaxima){
             velocidadActual += velocidadIncremento;
-        } else if(!estaAcelerando && velocidadActual > 0){
+        } else if(!estaAcelerando && velocidadActual > velocidadMinima){
             velocidadActual -= velocidadIncremento;
         }
 
@@ -130,6 +222,7 @@ var raceCityJugador = function(ctx, nombre, color, competidores){
 
     return {
         dibujar: dibujar,
-        jugar: jugar
+        jugar: jugar,
+        useKeyboard: useKeyboard
     }
 }
