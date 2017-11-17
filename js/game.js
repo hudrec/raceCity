@@ -227,11 +227,8 @@ window.connectManager.on("message", function(data){
         manejar();
     }      
 });
-
 window.connectManager.init();
-var terreno = new Image();
-terreno.src = "img/terreno.jpg";
-//setInterval(keypress_handler, 1000);
+
 var jugador1 = {ruta : 0,
     count : 0,
     indice : 0,
@@ -242,90 +239,36 @@ var jugador2 = {ruta : 0,
     indice : 0,
     name:2
 };
+
 function init(){
-    //
-    /*chofer = new Image();
-    chofer.src = "img/chofer1.png";*/
-    //var chofer = new Image();
-    //chofer.src = "img/chofer1.png";
-    //main = document.getElementById("auto").getContext("2d");
-    // $("#listaJugadores").hide();
-    // document.body.style.backgroundImage='none';
-    // ctx = document.getElementById("auto").getContext("2d");
-    // ctx1 = document.getElementById("auto1").getContext("2d");
-    // ctx.drawImage(fondo,0,0,fondo.width,fondo.height,0,0,fondo.width,fondo.height);
-    // ctx1.drawImage(fondo,0,0,fondo.width,fondo.height,0,0,fondo.width,fondo.height);
-    //
-    // ctx.drawImage(terreno,0,350);
-    // ctx1.drawImage(terreno,0,350);
-    // ctx1.drawImage(terreno,0,0);
-    //var req_id = requestAnimationFrame(correr);
-    //setTimeout(function(){
-    //$("#listaJugadores").show()
-    //document.body.style.backgroundImage='url("img/menu.png")';
-
-    //main.drawImage(chofer,400,250);
-    //correr();
-    //manejar();
-
-    //$("#chofer").attr("src", "img/chofer1.png");
-    //ctx.drawImage(chofer,0,0);
-
-    //},3000);
-    // TEST
-
-
-    // $("#listaJugadores").append('<span style="color: white;margin-left: 880px;"><h1>{data.message.name}</h1></span>');
-
     setTimeout(function(){
         $("body").css('background-image','url("img/esperando.png")')
-        // ctx.drawImage(fondo,0,0,fondo.width,fondo.height,0,0,fondo.width,window.innerHeight/5);
-        // ctx1.drawImage(fondo,0,0,fondo.width,fondo.height,0,0,fondo.width,window.innerHeight/5);
 
-        // ctx.drawImage(fondo,0,0,fondo.width,fondo.height,0,0,fondo.width,fondo.height);
-        // ctx1.drawImage(fondo,0,0,fondo.width,fondo.height,0,0,fondo.width,fondo.height);
-
-        // correr(ctx,jugador1);
-        // correr(ctx1,jugador2);
-
-        // manejar();
         $('#auto')[0].width = window.innerWidth;
         $('#auto')[0].height = window.innerHeight/2;
         ctx = document.getElementById("auto").getContext("2d");
 
-        var nuevoJugador1 = raceCityJugador(ctx, "Ider", "rojo", []);
-        nuevoJugador1.dibujar(0);
-        nuevoJugador1.useKeyboard();
-        nuevoJugador1.jugar();
-
         $('#auto1')[0].width = window.innerWidth;
         $('#auto1')[0].height = window.innerHeight/2;
         ctx1 = document.getElementById("auto1").getContext("2d");
-        ctx1.drawImage(fondo,0,0,fondo.width,fondo.height,0,0,fondo.width,window.innerHeight/5);
+
+        var nuevoJugador1 = raceCityJugador(ctx, "Ider", "rojo", 100);
+        var nuevoJugador2 = raceCityJugador(ctx1, "Fredy", "rojo", -100);
+        nuevoJugador1.setCompetidores([nuevoJugador2]);
+        nuevoJugador2.setCompetidores([nuevoJugador1]);
+
+        nuevoJugador1.dibujar(0);
+        nuevoJugador2.dibujar(0);
+
+        nuevoJugador1.useKeyboard();
+        nuevoJugador1.jugar();
+
+        nuevoJugador2.useAlternateKeyboard();
+        nuevoJugador2.jugar();
 
         document.body.style.backgroundImage='none';
 
         //correr(ctx,jugador1);
-        correr(ctx1,jugador2);
+        //correr(ctx1,jugador2);
     },3000)
 }
-
-
-//window.onload=function(){document.onkeydown=desplazar};
-//function desplazar(objeto){
-    //var tecla = objeto.which;
-
-    //var situacionY = document.getElementById("cuadrado").offsetLeft;
-    //var situacionX = document.getElementById("cuadrado").offsetTop;
-    //switch (tecla){
-        //case 37 :   
-            //cuadrado.style.left = situacionY-220+"px" ; break;
-        //case 38 : 
-            //cuadrado.style.top = situacionX-220+"px" ;break;
-        //case 39 :  
-            //cuadrado.style.left = situacionY-180+"px" ;break;
-        //case 40 : 
-            //cuadrado.style.top = situacionX-180+"px" ;break;
-        //default :alert("Se ha equivocado, debe pulsar las flechas del teclado");
-    //}
-//}

@@ -67,7 +67,7 @@ var raceCityRoadTemplate = function(){
     }
 }()
 
-var ruta_completa = [["R",10],["D",10], ["R",10],["I",10]]
+var ruta_completa = [["R",100],["D",10], ["R",10],["I",10]]
 
 var raceCityRoad = function(ruta_completa) {
     // ruta_completa = [["R",10],["D",10], ["R",10],["I",10]]
@@ -131,6 +131,9 @@ var raceCityRoad = function(ruta_completa) {
     }
 
     var obtener_imagen = function(indice){
+        if (indice >= pista_total.length){
+            indice = pista_total.length - 1;
+        }
         var tipo_pista_actual = pista_total[indice][0]
         var frame_actual = pista_total[indice][1]
 
