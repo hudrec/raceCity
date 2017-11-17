@@ -8,7 +8,7 @@ var e_curva_der_img= [];
 
 for (var i = 5; i >= 0; i--) {
 	curva_der[i] = new Image();
-	curva_der[i].src = "img/curva_der/Curva-movimiento"+ String(i+1)+".png";
+	curva_der[i].src = "img/curva_der/Curvamovimiento"+ String(i+1)+".png";
 }
 
 

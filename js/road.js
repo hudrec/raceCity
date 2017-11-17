@@ -7,13 +7,13 @@ var raceCityRoadTemplate = function(){
 
     for (var i = 5; i >= 0; i--) {
         curva_derecha.entrada[i] = new Image();
-        curva_derecha.entrada[i].src = "img/entrada_curva_der/Entrandoalacurva"+ String(i+1)+".png";
+        curva_derecha.entrada[i].src = "img/entrada_curva_der/entrandoalacurva"+ String(i+1)+".png";
 
         curva_derecha.centro[i] = new Image();
-        curva_derecha.centro[i].src = "img/curva_der/Curva-movimiento"+ String(i+1)+".png";
+        curva_derecha.centro[i].src = "img/curva_der/Curvamovimiento"+ String(i+1)+".png";
 
         curva_derecha.salida[i] = new Image();
-        curva_derecha.salida[i].src = "img/salida_curva_der/Saliendodelacurva"+ String(i+1)+".png";
+        curva_derecha.salida[i].src = "img/salida_curva_der/saliendodelacurva"+ String(i+1)+".png";
     }
 
     var curva_izquierda = {
@@ -24,13 +24,13 @@ var raceCityRoadTemplate = function(){
 
     for (var i = 5; i >= 0; i--) {
         curva_izquierda.entrada[i] = new Image();
-	    curva_izquierda.entrada[i].src = "img/entrada_curva_izq/Entrandoalacurva"+ String(i+1)+".png";;
+	    curva_izquierda.entrada[i].src = "img/entrada_curva_izq/entrandoalacurva"+ String(i+1)+".png";;
 
         curva_izquierda.centro[i] = new Image();
 	    curva_izquierda.centro[i].src = "img/curva_izq/Curvamovimiento"+ String(i+1)+".png";
 
         curva_izquierda.salida[i] = new Image();
-	    curva_izquierda.salida[i].src = "img/salida_curva_izq/Saliendodelacurva"+ String(i+1)+".png";
+	    curva_izquierda.salida[i].src = "img/salida_curva_izq/saliendodelacurva"+ String(i+1)+".png";
     }
 
     var pista_recta = {

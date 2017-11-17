@@ -58,13 +58,13 @@ for (var i = 5; i >= 0; i--) {
 
 for (var i = 5; i >= 0; i--) {
     salida_curva_izq[i] = new Image();
-    salida_curva_izq[i].src = "img/salida_curva_izq/Saliendodelacurva"+ String(i+1)+".png";
+    salida_curva_izq[i].src = "img/salida_curva_izq/saliendodelacurva"+ String(i+1)+".png";
 }
 
 
 for (var i = 5; i >= 0; i--) {
     entrada_curva_izq[i] = new Image();
-    entrada_curva_izq[i].src = "img/entrada_curva_izq/Entrandoalacurva"+ String(i+1)+".png";;
+    entrada_curva_izq[i].src = "img/entrada_curva_izq/entrandoalacurva"+ String(i+1)+".png";;
 }
 
 var speed=2;
