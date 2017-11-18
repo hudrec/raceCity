@@ -181,19 +181,19 @@ function init(){
         $('#auto1')[0].height = window.innerHeight/2;
         ctx1 = document.getElementById("auto1").getContext("2d");
 
-        var nuevoJugador1 = raceCityJugador(ctx, "Ider", "rojo", 100);
-        var nuevoJugador2 = raceCityJugador(ctx1, "Fredy", "rojo", -100);
+        var nuevoJugador1 = raceCityJugador(ctx, "Ider", "rojo", 50);
+        var nuevoJugador2 = raceCityJugador(ctx1, "Fredy", "rojo", -50);
         nuevoJugador1.setCompetidores([nuevoJugador2]);
         nuevoJugador2.setCompetidores([nuevoJugador1]);
 
-        nuevoJugador1.dibujar(20);
+        nuevoJugador1.dibujar(19);
         nuevoJugador2.dibujar(20);
 
-        //nuevoJugador1.useKeyboard();
-        //nuevoJugador1.jugar();
+        nuevoJugador1.useKeyboard();
+        nuevoJugador1.jugar();
 
-        //nuevoJugador2.useAlternateKeyboard();
-        //nuevoJugador2.jugar();
+        nuevoJugador2.useAlternateKeyboard();
+        nuevoJugador2.jugar();
 
         document.body.style.backgroundImage='none';
 

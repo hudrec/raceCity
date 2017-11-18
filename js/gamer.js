@@ -47,6 +47,13 @@ var raceCityJugador = function(ctx, nombre, color, initialPos){
     var arranco = false;
     var estaAcelerando = false;
 
+    //manejo de choques y colisiones
+    var contadorChoque = 0;
+    var penalidadChoque = 10; // nro turnos desacelerado
+    var distanciaRebote = 2;
+    var minDistanciaChoqueX = 100;
+    var minDistanciaChoqueY = -3;
+
     // limites de la pista
     var maximoDerecha = 400;
     var maximoIzquierda = -400;
@@ -211,8 +218,6 @@ var raceCityJugador = function(ctx, nombre, color, initialPos){
             //escala maxima = 3;
             escala += Math.abs(distancia) * 0.1533;
             aumentoY = distancia * 10 * -1;
-            console.log(escala)
-            console.log(aumentoY)
         } else if (distancia > 0){
             //escala = 0.3;
             escala -= distancia * 0.02667;
@@ -242,12 +247,17 @@ var raceCityJugador = function(ctx, nombre, color, initialPos){
         var pista = raceCityRoad.obtener_imagen(indice);
         ctx.drawImage(pista,0,0,pista.width,pista.height,0,window.innerHeight/5,window.innerWidth,window.innerHeight/2-220);
 
-        // renderizo el carro
-        dibujarCarro(indice, pista);
 
+        // renderizo el carro
+        if (progreso < competidores[0].getPosicionY()){
+            dibujarCarro(indice, pista);
+        }
         // renderizo a la competencia
         for (var i=0; i<competidores.length; i++){
             competidores[i].dibujarComoCompetidor(ctx, indice);
+        }
+        if (progreso >= competidores[0].getPosicionY()){
+            dibujarCarro(indice, pista);
         }
     }
 
@@ -274,6 +284,30 @@ var raceCityJugador = function(ctx, nombre, color, initialPos){
 
     }
 
+    var calcularColision = function() {
+        if (contadorChoque > 0){
+            estaAcelerando = false;
+            contadorChoque--;
+            return;
+        }
+
+        for (var i=0; i<competidores.length; i++){
+            var diferenciaX = Math.abs(posicionX - competidores[i].getPosicionX());
+            var diferenciaY = progreso - competidores[i].getPosicionY();
+
+            if(diferenciaX <= minDistanciaChoqueX &&
+                diferenciaY < 0 &&
+                diferenciaY > minDistanciaChoqueY) {
+                contadorChoque = penalidadChoque;
+                progreso -= distanciaRebote;
+            }
+
+            console.log(diferenciaY)
+            //console.log(progreso)
+            //console.log(contadorChoque)
+        }
+    }
+
     var jugar = function() {
         // logica de la pista
         logicaDePista();
@@ -285,6 +319,8 @@ var raceCityJugador = function(ctx, nombre, color, initialPos){
             // termino!!
             return;
         }
+
+        calcularColision();
 
         //aceleracion
         if(estaAcelerando && velocidadActual < velocidadMaxima){
@@ -298,12 +334,22 @@ var raceCityJugador = function(ctx, nombre, color, initialPos){
         }
     }
 
+    var getPosicionX = function() {
+        return posicionX;
+    }
+
+    var getPosicionY = function() {
+        return progreso;
+    }
+
     return {
         dibujar: dibujar,
         dibujarComoCompetidor: dibujarComoCompetidor,
         jugar: jugar,
         useKeyboard: useKeyboard,
         useAlternateKeyboard: useAlternateKeyboard,
-        setCompetidores: setCompetidores
+        setCompetidores: setCompetidores,
+        getPosicionX: getPosicionX,
+        getPosicionY: getPosicionY,
     }
 }
