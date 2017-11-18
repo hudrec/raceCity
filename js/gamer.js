@@ -28,7 +28,7 @@ var raceCityCarImages = function(){
 var raceCityJugador = function(ctx, nombre, color, initialPos){
     var ctx = ctx;
 
-    var progreso = 0;
+    var progreso = 20;
     var posicionX = 0;
     if (initialPos) {
         posicionX = initialPos;
@@ -198,35 +198,36 @@ var raceCityJugador = function(ctx, nombre, color, initialPos){
     }
 
     var dibujarComoCompetidor = function(contexto, pos){
-        var myscale = carScale;
-        var mypos;
-        mypos = progreso;
+        var escala = carScale;
 
-        var diff = mypos - pos
+        var distancia = progreso - pos
 
-        if(Math.abs(diff) > 15)
+        var aumentoY = 0;
+
+        if(Math.abs(distancia) > 15)
             return;
 
-        if(diff < 0){
-            myscale = carScale + Math.abs(diff) * 0.093;
-            console.log(myscale)
-        } else if (diff > 0){
-            //myscale = carScale / (2/diff) ;
-            //console.log(myscale)
-            myscale = 0.5;
+        if(distancia < 0){
+            //escala maxima = 3;
+            escala += Math.abs(distancia) * 0.1533;
+            aumentoY = distancia * 10 * -1;
+            console.log(escala)
+            console.log(aumentoY)
+        } else if (distancia > 0){
+            //escala = 0.3;
+            escala -= distancia * 0.02667;
+            aumentoY = distancia * 3.333 * -1;
         }
         //calculo mi posicion relativa
-        var car = imagenCarro(mypos);
+        var car = imagenCarro(progreso);
 
         //calcular en base a la diferencia
-        var largo = car.width * myscale;
-        var ancho = car.height * myscale;
+        var largo = car.width * escala;
+        var ancho = car.height * escala;
 
-        var pista = raceCityRoad.obtener_imagen(mypos);
-
+        var pista = raceCityRoad.obtener_imagen(progreso);
         var carX = window.innerWidth/2+posicionX-largo/2;
-        var carY = (pista.height/2) + 130 - (diff*2);
-        console.log(carY)
+        var carY = (pista.height/2) + 150 + aumentoY;
 
         contexto.drawImage(car, carX, carY, largo, ancho);
     }
