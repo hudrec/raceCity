@@ -1,34 +1,11 @@
 var FPS = 30;
-var ctx1;
 var ctx;
 var pista;
-var pista1;
-var left_c =0;
-var left_c1 =0;
-var right_c =0;
-var right_c1 =0;
 var mod =0;
 var x;
 var y;
 var fondo = new Image();
 fondo.src = "img/Fondo-prueba.png";
-var cars_izq = [];
-var cars_der = [];
-var pistas_rectas = [];
-
-for (var i = 5; i >= 0; i--) {
-    pistas_rectas[i] = new Image();
-    pistas_rectas[i].src = "img/pista_recta/pista"+ String(i+1)+".png";
-}
-var pista1 = pistas_rectas[0]
-for (var i = 3; i >= 0; i--) {
-    cars_izq[i] = new Image();
-    cars_izq[i].src = "img/cars_izq/auto_iz"+ String(i+1)+".png";
-}
-for (var i = 3; i >= 0; i--) {
-    cars_der[i] = new Image();
-    cars_der[i].src = "img/cars_der/auto_de"+ String(i+1)+".png";
-}
 var auto1 = new Image();
 auto1.src = "img/Auto-1.png";
 var auto2 = new Image();
@@ -40,31 +17,11 @@ var left=false;
 var left1=false;
 var right=false;
 var right1=false;
-var curva_izq = [];
-var salida_curva_izq= [];
-var entrada_curva_izq= [];
 var meta= [];
 
 for (var i = 8; i >= 0; i--) {
     meta[i] = new Image();
     meta[i].src = "img/meta/meta_"+ String(i+1)+".png";
-}
-
-for (var i = 5; i >= 0; i--) {
-    curva_izq[i] = new Image();
-    curva_izq[i].src = "img/curva_izq/Curvamovimiento"+ String(i+1)+".png";
-}
-
-
-for (var i = 5; i >= 0; i--) {
-    salida_curva_izq[i] = new Image();
-    salida_curva_izq[i].src = "img/salida_curva_izq/saliendodelacurva"+ String(i+1)+".png";
-}
-
-
-for (var i = 5; i >= 0; i--) {
-    entrada_curva_izq[i] = new Image();
-    entrada_curva_izq[i].src = "img/entrada_curva_izq/entrandoalacurva"+ String(i+1)+".png";;
 }
 
 var speed=2;
@@ -93,29 +50,6 @@ function terminar(){
     if (term > 12){
         cancelAnimationFrame(ter_id);
         ctx.drawImage(meta[8],0,0);
-    }
-
-
-
-}
-var term1 = 0;
-var alejar1 = 0;
-function terminar1(){
-    term1++;
-    ter_id1 = requestAnimationFrame(terminar1);
-
-    if (term1 && 1){
-        ctx1.drawImage(meta[8],0,0);
-        alejar1 = term*13;
-        if (term1 & speed1) car1 = auto1;
-        else car1 = auto2;
-        x1 = largo*(1-term/10) ;
-        y1 = ancho*(1-term/10) ;
-    }
-    ctx1.drawImage(car1,pista1.width/2 + mod-x/2,pista1.height-y1-alejar,x1,y1); 
-    if (term1 > 12){
-        cancelAnimationFrame(ter_id1);
-        ctx1.drawImage(meta[8],0,0);
     }
 
 
@@ -209,16 +143,11 @@ window.connectManager.on("message", function(data){
     }
     if (data.message.jugar){
         $('#auto')[0].width = window.innerWidth;
-        $('#auto1')[0].width = window.innerWidth;
         $('#auto')[0].height = window.innerHeight/2;
-        $('#auto1')[0].height = window.innerHeight/2;
         ctx = document.getElementById("auto").getContext("2d");
-        ctx1 = document.getElementById("auto1").getContext("2d");
         ctx.drawImage(fondo,0,0,fondo.width,fondo.height,0,0,fondo.width,window.innerHeight/5);
-        ctx1.drawImage(fondo,0,0,fondo.width,fondo.height,0,0,fondo.width,window.innerHeight/5);
 
         correr(ctx,jugador1);
-        correr(ctx1,jugador2);
         document.body.style.backgroundImage='none';
         //$("#listaJugadores").hide();
 
@@ -252,13 +181,13 @@ function init(){
         $('#auto1')[0].height = window.innerHeight/2;
         ctx1 = document.getElementById("auto1").getContext("2d");
 
-        var nuevoJugador1 = raceCityJugador(ctx, "Ider", "rojo", 100);
-        var nuevoJugador2 = raceCityJugador(ctx1, "Fredy", "rojo", -100);
+        var nuevoJugador1 = raceCityJugador(ctx, "Ider", "rojo", 50);
+        var nuevoJugador2 = raceCityJugador(ctx1, "Fredy", "rojo", -50);
         nuevoJugador1.setCompetidores([nuevoJugador2]);
         nuevoJugador2.setCompetidores([nuevoJugador1]);
 
-        nuevoJugador1.dibujar(0);
-        nuevoJugador2.dibujar(0);
+        nuevoJugador1.dibujar(19);
+        nuevoJugador2.dibujar(20);
 
         nuevoJugador1.useKeyboard();
         nuevoJugador1.jugar();
