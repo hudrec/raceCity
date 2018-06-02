@@ -1,4 +1,4 @@
-var raceCityCarImages = function(){
+var raceCityCarImages = function(color){
     var moverIzquierda = [];
     for (var i = 3; i >= 0; i--) {
         moverIzquierda[i] = new Image();

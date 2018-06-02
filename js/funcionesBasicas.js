@@ -36,11 +36,11 @@ function irSalaDeEspera() {
     for (var i = 0; i < jugadores.length; i++) {
         var playerImage = jugadores[i].getImagenJugador();
         playerImage.onload = function() {
-            ctx.drawImage(playerImage, 420*i + 120,40,320,300);
+            ctx.drawImage(playerImage, 960*(i-1) + 250,40,320,300);
         };
         ctx.font = '60px Symtext';
         ctx.fillStyle = "#fff";
-        ctx.fillText(jugadores[i].getNombre(),420*i + 320,500);
+        ctx.fillText(jugadores[i].getNombre(),960*i + 320,500);
 
     }
     if(jugadores.length<2){
