@@ -18,7 +18,7 @@ window.onload = function () {
     // SE DIBUJA LA PANTALLA DE ESPERANDO JUGADORES
 
     document.body.style.backgroundImage='none';
-    $("body").css('background-image','url("img/Splash.png")');
+    $("body").css('background-image','url("img/esperando.png")');
 
     //INICIA EL CONNECT SDK
     window.connectManager = new connectsdk.ConnectManager();

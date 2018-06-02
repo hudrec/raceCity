@@ -16,8 +16,13 @@ function empezar(){
         ctx.clearRect(0, 0, 1920, 1080);
         //jugador1.dibujar(0);
         jugador1.jugar();
-    },1000);
-    jugador2.jugar();
+        jugador2.jugar();
+        setTimeout(function(){
+            jugador1.arrancar();
+            jugador2.arrancar();
+        },2000);
+    },2000);
+
     //jugador2.arrancar();
     
     

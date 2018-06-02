@@ -205,7 +205,7 @@ var raceCityJugador = function(ctx,idJugador,nombre, color, initialPos){
         var largo = car.width*carScale;
         var ancho = car.height*carScale;
 
-        ctx.drawImage(car, window.innerWidth/2+posicionX-largo/2 ,pista.height/2+150, largo, ancho);
+        ctx.drawImage(car, 960+posicionX-largo/2 ,pista.height/2+150, largo, ancho);
     }
 
     var dibujarComoCompetidor = function(contexto, pos){
@@ -235,7 +235,7 @@ var raceCityJugador = function(ctx,idJugador,nombre, color, initialPos){
         var ancho = car.height * escala;
 
         var pista = raceCityRoad.obtener_imagen(progreso);
-        var carX = window.innerWidth/2+posicionX-largo/2;
+        var carX = 960 + posicionX - largo/2;
         var carY = (pista.height/2) + 150 + aumentoY;
 
         contexto.drawImage(car, carX, carY, largo, ancho);
@@ -246,11 +246,11 @@ var raceCityJugador = function(ctx,idJugador,nombre, color, initialPos){
         var fondo = raceCityRoadTemplate.fondo;
         // renderizo el fondo
         // TODO: calcular segun la curva
-        ctx.drawImage(fondo,0,0,fondo.width,fondo.height,0,0,fondo.width,window.innerHeight/5);
+        ctx.drawImage(fondo,0,0,fondo.width,fondo.height,0,0,1920,216);
 
         // renderizo la pista actual
         var pista = raceCityRoad.obtener_imagen(indice);
-        ctx.drawImage(pista,0,0,pista.width,pista.height,0,window.innerHeight/5,window.innerWidth,window.innerHeight/2-220);
+        ctx.drawImage(pista,0,0,pista.width,pista.height,0,216,1920,284);
 
 
         // renderizo el carro
@@ -385,6 +385,7 @@ var raceCityJugador = function(ctx,idJugador,nombre, color, initialPos){
         dibujar: dibujar,
         dibujarComoCompetidor: dibujarComoCompetidor,
         jugar: jugar,
+        arrancar: arrancar,
         useKeyboard: useKeyboard,
         useAlternateKeyboard: useAlternateKeyboard,
         setCompetidores: setCompetidores,
