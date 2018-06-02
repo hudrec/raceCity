@@ -25,19 +25,23 @@ var raceCityCarImages = function(){
     }
 }();
 
-var raceCityJugador = function(ctx, nombre, color, initialPos){
+//NOMBRE COLOR
+var raceCityJugador = function(ctx,idJugador,nombre, color, initialPos){
     var ctx = ctx;
-
+    var id = idJugador;
     var progreso = 20;
     var posicionX = 0;
     if (initialPos) {
         posicionX = initialPos;
     }
 
+    var carroimg = new Image();
+    var jugadorimg = new Image();
+
     var indiceGiro = 0; //cambia de frame cuando gira (de 0 a 3)
     var giro = ""; // "derecha" / "izquierda"
 
-    var carScale=0.7
+    var carScale=0.7;
 
     //manejo de la aceleracion
     var velocidadActual = 0;
@@ -237,6 +241,7 @@ var raceCityJugador = function(ctx, nombre, color, initialPos){
         contexto.drawImage(car, carX, carY, largo, ancho);
     }
 
+    //indice: posicion de la imagen de la pista
     var dibujar = function(indice) {
         var fondo = raceCityRoadTemplate.fondo;
         // renderizo el fondo
@@ -309,6 +314,7 @@ var raceCityJugador = function(ctx, nombre, color, initialPos){
     }
 
     var jugar = function() {
+        document.body.style.backgroundImage='none';
         // logica de la pista
         logicaDePista();
 
@@ -342,6 +348,39 @@ var raceCityJugador = function(ctx, nombre, color, initialPos){
         return progreso;
     }
 
+    //ESCOGER CARRO
+
+    var setearCarroImagen = function () {
+        carroimg.src="img/autos/auto_"+color+".png";
+        jugadorimg.src="img/choferes/jugador_"+color+".png";
+    };
+
+    //NUEVOS
+    var setearColor = function (_color) {
+        color = _color;
+        setearCarroImagen();
+    }
+
+    var setearNombre = function (_nombre) {
+        nombre=_nombre;
+    };
+
+    var setearContexto = function (_contexto) {
+        ctx = _contexto;
+    };
+
+    var setearId = function (_id) {
+        id=_id;
+    };
+
+    var getImagenJugador = function () {
+        return jugadorimg;
+    };
+
+    var getNombre = function () {
+        return nombre;
+    };
+
     return {
         dibujar: dibujar,
         dibujarComoCompetidor: dibujarComoCompetidor,
@@ -351,5 +390,12 @@ var raceCityJugador = function(ctx, nombre, color, initialPos){
         setCompetidores: setCompetidores,
         getPosicionX: getPosicionX,
         getPosicionY: getPosicionY,
+        //NUEVOS
+        setearColor: setearColor,
+        setearNombre: setearNombre,
+        setearContexto: setearContexto,
+        setearId: setearId,
+        getImagenJugador: getImagenJugador,
+        getNombre: getNombre
     }
 }
