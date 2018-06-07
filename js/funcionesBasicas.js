@@ -25,7 +25,7 @@ function empezar(){
 
     //jugador2.arrancar();
     
-
+    
 
     //correr(jugadore[1]);
 }
@@ -71,7 +71,7 @@ function conectarJugador(nombre,color, idJugador) {
         var jugador = new raceCityJugador(ctx1,idJugador,nombre,color,-100);
     }
     
-    jugador.setearColor(color);
+    //jugador.setearColor(color);
 
     switch (jugadores.length){
         //ES EL PRIMER JUGADOR
@@ -95,7 +95,7 @@ function conectarJugador(nombre,color, idJugador) {
         // SALA LLENA, NO PUEDE CONECTARSE
         case 2:
             var mensaje = {accion: "salallena",resultado: ""}
-            window.connectManager.sendMessage(pcodigo,mensaje);
+            window.connectManager.sendMessage(idJugador,mensaje);
             break;
     }
 }

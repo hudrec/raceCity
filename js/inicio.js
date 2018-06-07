@@ -37,6 +37,39 @@ window.onload = function () {
             // window.connectManager.sendMessage(data.from, mensaje);
 
         }
+        if(data.message.accion === "enviarEvento")
+        {
+            ctx = document.getElementById("auto").getContext("2d");
+
+
+            // jugador1 = jugadores.find(function(c){return c.getId === data.from });
+            // jugador1 = jugadores.find(function(c){return c.getId === data.from });
+
+            if (data.message.direccion === "izquierda"){
+                if(data.from === jugadores[0].getId()){
+                    jugadores[0].moverIzquierda();
+
+                }
+                else{
+                    jugadores[1].moverIzquierda();
+                }
+                // jugadores[0].getId() === data.from ? jugadores[0].moverIzquierda() : jugadores[1].moverIzquierda();
+            }
+            else {
+                if (data.message.direccion === "derecha") {
+                    if(data.from.toString() === jugadores[0].getId().toString()) {
+                        jugadores[0].moverDerecha();
+
+                    }
+                    else{
+                        jugadores[1].moverDerecha()
+                    }
+                    // jugadores[0].getId() === data.from ? jugadores[0].moverDerecha() : jugadores[1].moverDerecha();;
+
+
+                }
+            }
+        }
     });
     window.connectManager.init();
 

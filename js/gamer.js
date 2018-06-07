@@ -1,4 +1,4 @@
-var raceCityCarImages = function(color){
+var raceCityCarImages = function(){
     var moverIzquierda = [];
     for (var i = 3; i >= 0; i--) {
         moverIzquierda[i] = new Image();
@@ -26,8 +26,9 @@ var raceCityCarImages = function(color){
 }();
 
 //NOMBRE COLOR
-var raceCityJugador = function(ctx,idJugador,nombre, color, initialPos){
+var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
     var ctx = ctx;
+    var color = jcolor;
     var id = idJugador;
     var progreso = 20;
     var posicionX = 0;
@@ -94,14 +95,14 @@ var raceCityJugador = function(ctx,idJugador,nombre, color, initialPos){
 
     var moverDerecha = function() {
         if (arranco && (posicionX<maximoDerecha) && (posicionX>=maximoIzquierda-50)){
-            posicionX += constanteMovimiento * 1.5;
+            posicionX += constanteMovimiento * 2.5;
             giro="derecha";
         }
     }
 
     var moverIzquierda = function() {
         if (arranco && (posicionX<=maximoDerecha+50) && (posicionX>maximoIzquierda)){
-            posicionX -= constanteMovimiento * 1.5;
+            posicionX -= constanteMovimiento * 2.5;
             giro="izquierda";
         }
     }
@@ -380,11 +381,17 @@ var raceCityJugador = function(ctx,idJugador,nombre, color, initialPos){
     var getNombre = function () {
         return nombre;
     };
+    var getId = function () {
+        return id;
+    };
 
     return {
         dibujar: dibujar,
         dibujarComoCompetidor: dibujarComoCompetidor,
         jugar: jugar,
+        moverIzquierda: moverIzquierda,
+        moverDerecha: moverDerecha,
+
         arrancar: arrancar,
         useKeyboard: useKeyboard,
         useAlternateKeyboard: useAlternateKeyboard,
@@ -397,6 +404,7 @@ var raceCityJugador = function(ctx,idJugador,nombre, color, initialPos){
         setearContexto: setearContexto,
         setearId: setearId,
         getImagenJugador: getImagenJugador,
-        getNombre: getNombre
+        getNombre: getNombre,
+        getId: getId
     }
 }
