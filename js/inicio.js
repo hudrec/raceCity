@@ -17,8 +17,14 @@ var jugadores = new Array();
 window.onload = function () {
     // SE DIBUJA LA PANTALLA DE ESPERANDO JUGADORES
 
+
     document.body.style.backgroundImage='none';
     $("body").css('background-image','url("img/esperando.png")');
+
+    // MAIN CTX
+    ctx = document.getElementById("auto").getContext("2d");
+    ctx.font = '60px Symtext';
+    ctx.fillStyle = "#fff";
 
     //INICIA EL CONNECT SDK
     window.connectManager = new connectsdk.ConnectManager();
@@ -39,7 +45,7 @@ window.onload = function () {
         }
         if(data.message.accion === "enviarEvento")
         {
-            ctx = document.getElementById("auto").getContext("2d");
+            // ctx = document.getElementById("auto").getContext("2d");
 
 
             // jugador1 = jugadores.find(function(c){return c.getId === data.from });

@@ -1,3 +1,6 @@
+var tvLargo = 1920;
+var tvAncho = 1080;
+
 var raceCityCarImages = function(){
     var moverIzquierda = [];
     for (var i = 3; i >= 0; i--) {
@@ -240,7 +243,11 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
         var carX = 960 + posicionX - largo/2;
         var carY = (pista.height/2) + 150 + aumentoY;
 
-        contexto.drawImage(car, carX, carY, largo, ancho);
+        if (carY < 540) //solo cuando este dentro de la cancha
+        {
+            contexto.drawImage(car, carX, carY, largo, ancho);
+        }
+
     }
 
     //indice: posicion de la imagen de la pista
@@ -248,11 +255,11 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
         var fondo = raceCityRoadTemplate.fondo;
         // renderizo el fondo
         // TODO: calcular segun la curva
-        ctx.drawImage(fondo,0,0,fondo.width,fondo.height,0,0,1920,216);
+        ctx.drawImage(fondo,0,0,tvLargo,216);
 
         // renderizo la pista actual
         var pista = raceCityRoad.obtener_imagen(indice);
-        ctx.drawImage(pista,0,0,pista.width,pista.height,0,216,1920,284);
+        ctx.drawImage(pista,0,217,tvLargo,(tvAncho/2)-217);
 
 
         // renderizo el carro

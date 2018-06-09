@@ -1,9 +1,7 @@
 function empezar(){
-    
+    ctx.canvas.height = tvAncho/2;
     //document.getElementById("auto").style.height = "540px";
-    ctx = document.getElementById("auto").getContext("2d");
-    ctx1 = document.getElementById("auto1").getContext("2d");
-    
+    // ctx = document.getElementById("auto").getContext("2d");
     //context.clearRect(0, 0, canvas.width, canvas.height);
     var jugador1 = jugadores[0];
     var jugador2 = jugadores[1];
@@ -13,7 +11,7 @@ function empezar(){
         
         
     setTimeout(function(){
-        ctx.clearRect(0, 0, 1920, 1080);
+        ctx.clearRect(0, 0, tvLargo,tvAncho/2);
         //jugador1.dibujar(0);
         jugador1.jugar();
         jugador2.jugar();
@@ -39,6 +37,7 @@ function dibujarChofer(indice){
     };
 
     ctx.fillText(jugadores[indice].getNombre(),960*indice + 320,500);
+    // ctx.fillText(ctx.canvas.height + ' - ' + ctx.canvas.width,960*indice + 320,500);
 
 }
 
@@ -65,9 +64,7 @@ function irSalaDeEspera() {
 }
 
 function conectarJugador(nombre,color, idJugador) {
-    ctx = document.getElementById("auto").getContext("2d");
-    ctx.font = '60px Symtext';
-    ctx.fillStyle = "#fff";
+
     ctx1 = document.getElementById("auto1").getContext("2d");
     if(jugadores.length == 0){
         var jugador = new raceCityJugador(ctx,idJugador,nombre,color,100);
