@@ -30,19 +30,22 @@ function empezar(){
     //correr(jugadore[1]);
 }
 
+function dibujarChofer(indice){
+    //ctx = document.getElementById("auto").getContext("2d");
+
+    var playerImage = jugadores[indice].getImagenJugador();
+    playerImage.onload = function() {
+        ctx.drawImage(playerImage, 960*indice + 250,40,320,300);
+    };
+
+    ctx.fillText(jugadores[indice].getNombre(),960*indice + 320,500);
+
+}
 
 function irSalaDeEspera() {
     ctx = document.getElementById("auto").getContext("2d");
-    for (var i = 0; i < jugadores.length; i++) {
-        var playerImage = jugadores[i].getImagenJugador();
-        playerImage.onload = function() {
-            ctx.drawImage(playerImage, 960*(i-1) + 250,40,320,300);
-        };
-        ctx.font = '60px Symtext';
-        ctx.fillStyle = "#fff";
-        ctx.fillText(jugadores[i].getNombre(),960*i + 320,500);
+    dibujarChofer(jugadores.length - 1);
 
-    }
     if(jugadores.length<2){
         //BOTON INICIAR
         var iniciar = new Image();
@@ -63,6 +66,8 @@ function irSalaDeEspera() {
 
 function conectarJugador(nombre,color, idJugador) {
     ctx = document.getElementById("auto").getContext("2d");
+    ctx.font = '60px Symtext';
+    ctx.fillStyle = "#fff";
     ctx1 = document.getElementById("auto1").getContext("2d");
     if(jugadores.length == 0){
         var jugador = new raceCityJugador(ctx,idJugador,nombre,color,100);

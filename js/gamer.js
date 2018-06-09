@@ -38,6 +38,7 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
 
     var carroimg = new Image();
     var jugadorimg = new Image();
+    jugadorimg.src="img/choferes/jugador_"+color+".png";
 
     var indiceGiro = 0; //cambia de frame cuando gira (de 0 a 3)
     var giro = ""; // "derecha" / "izquierda"
