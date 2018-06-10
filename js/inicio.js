@@ -34,7 +34,9 @@ window.onload = function () {
         //AGREGAR NUEVO JUGADOR
         if(data.message.accion === "conectarJugador")
         {
-            $("body").css('background-image', 'url("img/fondotv.png")');
+            if(jugadores.length === 0){
+                $("body").css('background-image', 'url("img/fondotv.png")');
+            }
             conectarJugador(data.message.nombre, data.message.color, data.from);
 
 
