@@ -317,8 +317,6 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
             }
 
             console.log(diferenciaY)
-            //console.log(progreso)
-            //console.log(contadorChoque)
         }
     }
 
