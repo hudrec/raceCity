@@ -60,7 +60,7 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
     //manejo de choques y colisiones
     var contadorChoque = 0;
     var penalidadChoque = 10; // nro turnos desacelerado
-    var distanciaRebote = 20;
+    var distanciaRebote = 2;
     var minDistanciaChoqueX = 130; //100
     var minDistanciaChoqueY = 6.5; //-3
 
