@@ -14,7 +14,7 @@ function init(){
         // $('#auto1')[0].height = window.innerHeight/2;
         ctx1 = document.getElementById("auto1").getContext("2d");
 
-        var nuevoJugador1 = raceCityJugador(ctx,1, "Ider", "rojo", 150);
+        var nuevoJugador1 = raceCityJugador(ctx,1, "Ider", "rojo", -150);
         var nuevoJugador2 = raceCityJugador(ctx1,2, "Fredy", "rojo", 150);
         nuevoJugador1.setCompetidores([nuevoJugador2]);
         nuevoJugador2.setCompetidores([nuevoJugador1]);
