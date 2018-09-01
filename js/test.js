@@ -22,10 +22,10 @@ function init(){
         nuevoJugador1.dibujar(19);
         nuevoJugador2.dibujar(20);
 
-        nuevoJugador1.useKeyboard();
+        nuevoJugador1.useAlternateKeyboard();
         nuevoJugador1.jugar();
 
-        nuevoJugador2.useAlternateKeyboard();
+        nuevoJugador2.useKeyboard();
         nuevoJugador2.jugar();
 
 

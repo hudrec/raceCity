@@ -151,7 +151,7 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
             var tecla = evt.which;
             switch (tecla){
                 case 87:
-                    //arrancar();
+                    arrancar();
                     break;
                 case 65:
                     moverIzquierda();
@@ -268,6 +268,12 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
         var pista = raceCityRoad.obtener_imagen(indice);
         ctx.drawImage(pista,0,217,tvLargo,(tvAncho/2)-217);
 
+        /*var obs = new Image();
+        obs.src = "img/seta.png";
+        var aleatorio = Math.floor(Math.random() * (10 - 1)) + 1;
+        if(aleatorio == 2){
+            ctx.drawImage(obs,0,300, 100, 100);
+        }*/
 
         // renderizo el carro
         if (progreso < competidores[0].getPosicionY()){
