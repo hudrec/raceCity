@@ -1,4 +1,4 @@
-var raceCityRoadTemplate = function(){
+ var raceCityRoadTemplate = function(){
     var curva_derecha = {
         "entrada": [],
         "centro": [],
@@ -44,17 +44,6 @@ var raceCityRoadTemplate = function(){
         pista_recta.centro[i].src = "img/pista_recta/pista"+ String(i+1)+".png";
     }
 
-    var pista_obstaculo = {
-        "entrada": [],
-        "centro": [],
-        "salida": []
-    };
-
-    for (var i = 5; i >= 0; i--) {
-        pista_obstaculo.centro[i] = new Image();
-        pista_obstaculo.centro[i].src = "img/pista_obstaculos/pista"+ String(i+1)+".png";
-    }
-
     var pista_cerrar = {
         "entrada": [],
         "centro": [],
@@ -89,7 +78,6 @@ var raceCityRoad = function(ruta_completa) {
     var indice_izquierda_entrada = "Ie";
     var indice_izquierda_salida = "Is";
     var indice_recto = "R";
-    var indice_obstaculo = "O";
     var indice_cerrar = "C";
     var pista_total = [];
 
@@ -123,9 +111,6 @@ var raceCityRoad = function(ruta_completa) {
                     break;
                 case indice_recto:
                     seccion_pista = raceCityRoadTemplate.pista_recta.centro;
-                    break;
-                case indice_obstaculo:
-                    seccion_pista = raceCityRoadTemplate.pista_obstaculo.centro;
                     break;
             }
 
@@ -163,8 +148,6 @@ var raceCityRoad = function(ruta_completa) {
             pista_actual = raceCityRoadTemplate.pista_recta
         } else if (indices[0] === indice_cerrar) {
             pista_actual = raceCityRoadTemplate.pista_cerrar
-        }else if (indices[0] === indice_obstaculo) {
-            pista_actual = raceCityRoadTemplate.pista_obstaculo
         }
 
         if(indices.length === 2){

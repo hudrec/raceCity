@@ -327,7 +327,13 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
                 snd.play();
 
                 contadorChoque = penalidadChoque;
+               console.log(progreso);
+                if(progreso<=distanciaRebote){
+                    progreso = distanciaRebote +1;
+                }
                 progreso -= distanciaRebote;
+                posicionX -= 50;
+                competidores[i].setPosicionX(competidores[i].getPosicionX() + 50);
 
                 competidores[i].moverDerecha();
             }
@@ -367,6 +373,10 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
     var getPosicionY = function() {
         return progreso;
     };
+
+    var setPosicionX = function(posicion) {
+        posicionX = posicion;
+    }
 
     //ESCOGER CARRO
 
@@ -417,6 +427,7 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
         setCompetidores: setCompetidores,
         getPosicionX: getPosicionX,
         getPosicionY: getPosicionY,
+        setPosicionX: setPosicionX,
         //NUEVOS
         setearColor: setearColor,
         setearNombre: setearNombre,
