@@ -216,7 +216,6 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
         //console.log("x : "+(960+posicionX-largo/2));
         //console.log("largo: "+largo);
         //console.log("ancho: "+ancho);
-
         ctx.drawImage(car, 960+posicionX-largo/2 ,pista.height/2+150, largo, ancho);
     };
 
@@ -257,6 +256,56 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
 
     }
 
+    var dibujarObstaculos = function(progreso){
+        //ruta_completa = [["R",100],["D",10],["R",10],["I",10]]
+        //Recto = progreso 19 - 599
+        //Derecha = progreso 
+        //Recto = progreso
+        //Izquierda = progreso
+        var obs = new Image();
+        obs.src = "img/seta.png";
+        estadoActual = raceCityRoad.pista_total[progreso][0].split("")[0];
+        /*var aleatorio = Math.floor(Math.random() * (10 - 1)) + 1;
+            if(aleatorio == 2){
+                ctx.drawImage(obs,0,300, 100, 100);
+            }*/
+        if (estadoActual === "R"){
+            //console.log("R: "+progreso);
+            if(progreso >= 21 && progreso <= 30){
+                ctx.drawImage(obs,tvLargo/2,207, 20, 20);
+            }else if(progreso >= 31 && progreso <=40){
+                ctx.drawImage(obs,tvLargo/2,227, 30, 30);
+            }else if(progreso >= 41 && progreso <= 50){
+                ctx.drawImage(obs,tvLargo/2,247, 40, 40);
+            }else if(progreso >= 51 && progreso <= 60){
+                ctx.drawImage(obs,tvLargo/2,267, 50, 50);
+            }else if(progreso >= 61 && progreso <= 70){
+                ctx.drawImage(obs,tvLargo/2,287, 60, 60);
+            }else if(progreso >= 71 && progreso <= 80){
+                ctx.drawImage(obs,tvLargo/2,307, 70, 70);
+            }else if(progreso >= 81 && progreso <= 90){
+                ctx.drawImage(obs,tvLargo/2,327, 80, 80);
+            }else if(progreso >= 91 && progreso <= 100){
+                ctx.drawImage(obs,tvLargo/2,347, 90, 90);
+            }else if(progreso >= 101 && progreso <= 110){
+                ctx.drawImage(obs,tvLargo/2,367, 100, 100);
+            }else if(progreso >= 111 && progreso <= 120){
+                ctx.drawImage(obs,tvLargo/2,387, 110, 110);
+            }else if(progreso >= 121 && progreso <= 130){
+                ctx.drawImage(obs,tvLargo/2,407, 120, 120);
+            };
+
+        }else if(estadoActual === "D"){
+            console.log("D: "+progreso);
+            ctx.drawImage(obs,(tvLargo/2)+400,207, 20, 20);
+
+        }else if(estadoActual === "I"){
+            console.log("I: "+progreso);
+            ctx.drawImage(obs,(tvLargo/2)-400,207, 20, 20);
+
+        };
+    }
+
     //indice: posicion de la imagen de la pista
     var dibujar = function(indice) {
         var fondo = raceCityRoadTemplate.fondo;
@@ -268,12 +317,6 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
         var pista = raceCityRoad.obtener_imagen(indice);
         ctx.drawImage(pista,0,217,tvLargo,(tvAncho/2)-217);
 
-        /*var obs = new Image();
-        obs.src = "img/seta.png";
-        var aleatorio = Math.floor(Math.random() * (10 - 1)) + 1;
-        if(aleatorio == 2){
-            ctx.drawImage(obs,0,300, 100, 100);
-        }*/
 
         // renderizo el carro
         if (progreso < competidores[0].getPosicionY()){
@@ -286,6 +329,9 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
         if (progreso >= competidores[0].getPosicionY()){
             dibujarCarro(indice, pista);
         }
+    
+
+        dibujarObstaculos(indice);
     };
 
     var logicaDePista = function() {
@@ -312,22 +358,15 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
     };
 
     var calcularColision = function() {
-        /*if (contadorChoque > 0) {
-            estaAcelerando = false;
-            contadorChoque--;
-            return;
-        }*/
 
         for (var i=0; i<competidores.length; i++){
             var diferenciaX = Math.abs(posicionX - competidores[i].getPosicionX());
             var diferenciaY =  Math.abs(progreso - competidores[i].getPosicionY());
-            //colisión lateral
+            
             if(diferenciaX < minDistanciaChoqueX &&
                 diferenciaY < minDistanciaChoqueY) {
                 snd.play();
 
-                contadorChoque = penalidadChoque;
-               console.log(progreso);
                 if(progreso<=distanciaRebote){
                     progreso = distanciaRebote +1;
                 }
