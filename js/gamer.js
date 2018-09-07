@@ -75,6 +75,9 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
     // competidores
     var competidores = [];
 
+    var objetoVisibilidad=true;
+    var objetoVisibilidad2=true;
+
     var setCompetidores = function(list){
         competidores = list
     };
@@ -84,6 +87,10 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
             arranco = true;
             //acelerar();
             jugar();
+            if (!estaAcelerando){
+                estaAcelerando = true;
+            }
+
         }else{
             progreso += 1;
         }
@@ -254,7 +261,31 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
             contexto.drawImage(car, carX, carY, largo, ancho);
         }
 
-    }
+    };
+
+    var colisionObjetos = function (indice, x , y, size) {
+
+        var car = imagenCarro(indice);
+        var largo = car.width*carScale;
+        var pista = raceCityRoad.obtener_imagen(indice);
+
+        console.log('posicion x: '+(960+posicionX-largo/2)+'- '+x);
+        //console.log('posicion y: '+(pista.height/2+150)+'- '+y);
+
+        var diferenciaX = Math.abs((960+posicionX-largo/2) - x);
+        var diferenciaXCompetidor = Math.abs((960+competidor[0].getPosicionX()-largo/2) - x);
+        var diferenciaY = Math.abs((pista.height/2+150) - y);
+        console.log('diferencia x '+ diferenciaX+', size'+size);
+
+
+        if(diferenciaX <= size && diferenciaY <= size && diferenciaXCompetidor <= largo && diferenciaY <= size){
+            ctx.font = "bold 30px sans-serif";
+            ctx.fillText("+1",1600,50);
+            objetoVisibilidad = false;
+            competidores[0].serObjetoVisibilidad(false);
+        }
+
+    };
 
     var dibujarObstaculos = function(progreso){
         //ruta_completa = [["R",100],["D",10],["R",10],["I",10]]
@@ -271,40 +302,78 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
             }*/
         if (estadoActual === "R"){
             //console.log("R: "+progreso);
-            if(progreso >= 21 && progreso <= 30){
+
+
+            if(progreso >= 21 && progreso <= 30 && objetoVisibilidad){
                 ctx.drawImage(obs,tvLargo/2,207, 20, 20);
-            }else if(progreso >= 31 && progreso <=40){
+
+            }else if(progreso >= 31 && progreso <=40 && objetoVisibilidad){
                 ctx.drawImage(obs,tvLargo/2,227, 30, 30);
-            }else if(progreso >= 41 && progreso <= 50){
+
+            }else if(progreso >= 41 && progreso <= 50 && objetoVisibilidad){
                 ctx.drawImage(obs,tvLargo/2,247, 40, 40);
-            }else if(progreso >= 51 && progreso <= 60){
+
+
+            }else if(progreso >= 51 && progreso <= 60 && objetoVisibilidad){
                 ctx.drawImage(obs,tvLargo/2,267, 50, 50);
-            }else if(progreso >= 61 && progreso <= 70){
+                colisionObjetos(progreso, tvLargo/2, 267, 38.5);
+
+            }else if(progreso >= 61 && progreso <= 70 && objetoVisibilidad){
                 ctx.drawImage(obs,tvLargo/2,287, 60, 60);
-            }else if(progreso >= 71 && progreso <= 80){
+                colisionObjetos(progreso, tvLargo/2, 287, 58.5);
+
+            }else if(progreso >= 71 && progreso <= 80 && objetoVisibilidad ){
                 ctx.drawImage(obs,tvLargo/2,307, 70, 70);
-            }else if(progreso >= 81 && progreso <= 90){
+                colisionObjetos(progreso, tvLargo/2, 307, 70);
+
+            }else if(progreso >= 81 && progreso <= 90 && objetoVisibilidad){
                 ctx.drawImage(obs,tvLargo/2,327, 80, 80);
-            }else if(progreso >= 91 && progreso <= 100){
+
+            }else if(progreso >= 91 && progreso <= 100 && objetoVisibilidad){
                 ctx.drawImage(obs,tvLargo/2,347, 90, 90);
-            }else if(progreso >= 101 && progreso <= 110){
+
+            }else if(progreso >= 101 && progreso <= 110 && objetoVisibilidad){
                 ctx.drawImage(obs,tvLargo/2,367, 100, 100);
-            }else if(progreso >= 111 && progreso <= 120){
+
+            }else if(progreso >= 111 && progreso <= 120 && objetoVisibilidad){
                 ctx.drawImage(obs,tvLargo/2,387, 110, 110);
-            }else if(progreso >= 121 && progreso <= 130){
+
+            }else if(progreso >= 121 && progreso <= 130 && objetoVisibilidad){
                 ctx.drawImage(obs,tvLargo/2,407, 120, 120);
-            };
+            }
 
         }else if(estadoActual === "D"){
-            console.log("D: "+progreso);
-            ctx.drawImage(obs,(tvLargo/2)+400,207, 20, 20);
+            //console.log("D: "+progreso);
+
+            if(progreso >= 600 && progreso <= 610 && objetoVisibilidad2){
+                ctx.drawImage(obs,(tvLargo/2)+200,207, 20, 20);
+
+            }else if(progreso >= 611 && progreso <= 620 && objetoVisibilidad2){
+                ctx.drawImage(obs,(tvLargo/2)+170,227, 30, 30);
+
+            }else if(progreso >= 621 && progreso <= 630 && objetoVisibilidad2){
+                ctx.drawImage(obs,(tvLargo/2)+140,247, 40, 40);
+                //colisionObjetos(progreso, (tvLargo/2)+340 , 247, 38.5);
+
+            }else if(progreso >= 631 && progreso <= 640 && objetoVisibilidad2){
+                ctx.drawImage(obs,(tvLargo/2)+110,267, 50, 50);
+            }else if(progreso >= 641 && progreso <= 650 && objetoVisibilidad2){
+                ctx.drawImage(obs,(tvLargo/2)+140,287, 60, 60);
+            }else if(progreso >= 651 && progreso <= 660 && objetoVisibilidad2){
+                ctx.drawImage(obs,(tvLargo/2)+170,307, 70, 70);
+            }else if(progreso >= 661 && progreso <= 670 && objetoVisibilidad2){
+                ctx.drawImage(obs,(tvLargo/2)+200,327, 80, 80);
+            }else if(progreso >= 671 && progreso <= 680 && objetoVisibilidad2){
+                ctx.drawImage(obs,(tvLargo/2)+230,347, 90, 90);
+            }
+
 
         }else if(estadoActual === "I"){
-            console.log("I: "+progreso);
+            //console.log("I: "+progreso);
             ctx.drawImage(obs,(tvLargo/2)-400,207, 20, 20);
 
-        };
-    }
+        }
+    };
 
     //indice: posicion de la imagen de la pista
     var dibujar = function(indice) {
@@ -317,6 +386,7 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
         var pista = raceCityRoad.obtener_imagen(indice);
         ctx.drawImage(pista,0,217,tvLargo,(tvAncho/2)-217);
 
+        dibujarObstaculos(indice);
 
         // renderizo el carro
         if (progreso < competidores[0].getPosicionY()){
@@ -331,7 +401,7 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
         }
     
 
-        dibujarObstaculos(indice);
+
     };
 
     var logicaDePista = function() {
@@ -387,7 +457,9 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
         dibujar(progreso);
 
         progreso++;
-        if(progreso >= raceCityRoad.pista_total.length){
+        ctx.font = "bold 30px sans-serif";
+        ctx.fillText("Velocidad Actual: "+velocidadActual,50,50);
+        if(progreso >= raceCityRoad.pista_total.length ){
             // termino!!
             return;
         }
@@ -453,6 +525,10 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
         return id;
     };
 
+    var setObjetoVisibilidad = function(valor){
+        objetoVisibilidad = valor;
+    };
+
     return {
         dibujar: dibujar,
         dibujarComoCompetidor: dibujarComoCompetidor,
@@ -474,6 +550,7 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
         setearId: setearId,
         getImagenJugador: getImagenJugador,
         getNombre: getNombre,
-        getId: getId
+        getId: getId,
+        serObjetoVisibilidad:setObjetoVisibilidad
     }
 };
