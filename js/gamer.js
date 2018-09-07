@@ -216,8 +216,13 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
         //console.log("x : "+(960+posicionX-largo/2));
         //console.log("largo: "+largo);
         //console.log("ancho: "+ancho);
+        let carPosX = 960+posicionX-largo/2;
+        let carPosY = pista.height/2+150;
+        if (carPosY < 541){
+            ctx.drawImage(car, 960+posicionX-largo/2 ,pista.height/2+150, largo, ancho);
+        }
 
-        ctx.drawImage(car, 960+posicionX-largo/2 ,pista.height/2+150, largo, ancho);
+        
     };
 
     var dibujarComoCompetidor = function(contexto, pos){
@@ -250,8 +255,9 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
         var carX = 960 + posicionX - largo/2;
         var carY = (pista.height/2) + 150 + aumentoY;
 
-        if (carY < 540) //solo cuando este dentro de la cancha
+        if (carY < 280) //solo cuando este dentro de la cancha
         {
+            console.log(carY);
             contexto.drawImage(car, carX, carY, largo, ancho);
         }
 
@@ -267,7 +273,11 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
         // renderizo la pista actual
         var pista = raceCityRoad.obtener_imagen(indice);
         ctx.drawImage(pista,0,217,tvLargo,(tvAncho/2)-217);
-
+        ctx.font = "50px Arial";
+        var mapaDistancia = raceCityRoad.pista_total.length - progreso ;
+        ctx.fillText('DISTANCIA: '+ mapaDistancia,70,300);
+        ctx.fillText('VELOCIDAD: '+ velocidadActual,70,370);
+        
         /*var obs = new Image();
         obs.src = "img/seta.png";
         var aleatorio = Math.floor(Math.random() * (10 - 1)) + 1;
