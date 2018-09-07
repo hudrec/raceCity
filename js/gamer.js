@@ -337,15 +337,15 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
                 snd.play();
 
                 contadorChoque = penalidadChoque;
-               console.log(progreso);
-                if(progreso<=distanciaRebote){
+                console.log(progreso);
+                /*if(progreso<=distanciaRebote){
                     progreso = distanciaRebote +1;
-                }
-                progreso -= distanciaRebote;
+                }*/
+                //progreso -= distanciaRebote;
                 posicionX -= 50;
                 competidores[i].setPosicionX(competidores[i].getPosicionX() + 50);
 
-                competidores[i].moverDerecha();
+                //competidores[i].moverDerecha();
             }
         }
     };

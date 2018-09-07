@@ -67,7 +67,7 @@
     }
 }();
 
-var ruta_completa = [["R",100],["D",10],["R",10],["I",10]];
+var ruta_completa = [["R",100],["D",10],["R",10],["I",10],["C",1]];
 
 var raceCityRoad = function(ruta_completa) {
     // ruta_completa = [["R",10],["D",10], ["R",10],["I",10]]
