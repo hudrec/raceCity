@@ -67,7 +67,7 @@
     }
 }();
 
-var ruta_completa = [["R",100],["D",10],["R",10],["I",10],["C",1]];
+var ruta_completa = [["R",100],["D",10],["R",10],["I",10],["C",10]];
 
 var raceCityRoad = function(ruta_completa) {
     // ruta_completa = [["R",10],["D",10], ["R",10],["I",10]]
@@ -83,10 +83,11 @@ var raceCityRoad = function(ruta_completa) {
 
     for(var i=0; i< ruta_completa.length; i++) {
         if (ruta_completa[i][0] === indice_cerrar){
+            console.log('cerrrar');
             for(var j=0; j<raceCityRoadTemplate.pista_cerrar.length; j++) {
                 pista_total.push([ruta_completa[i][0], j]);
             }
-            break;
+            //break;
         }
 
         // frames de entrada
@@ -111,6 +112,9 @@ var raceCityRoad = function(ruta_completa) {
                     break;
                 case indice_recto:
                     seccion_pista = raceCityRoadTemplate.pista_recta.centro;
+                    break;
+                case indice_cerrar:
+                    seccion_pista = raceCityRoadTemplate.pista_cerrar.centro;
                     break;
             }
 

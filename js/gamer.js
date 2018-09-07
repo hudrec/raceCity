@@ -275,7 +275,7 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
         ctx.drawImage(pista,0,217,tvLargo,(tvAncho/2)-217);
         ctx.font = "50px Arial";
         var mapaDistancia = raceCityRoad.pista_total.length - progreso ;
-        ctx.fillText('DISTANCIA: '+ mapaDistancia,70,300);
+        ctx.fillText('DISTANCIA: '+ mapaDistancia,70,280);
         ctx.fillText('VELOCIDAD: '+ velocidadActual,70,370);
         
         /*var obs = new Image();
