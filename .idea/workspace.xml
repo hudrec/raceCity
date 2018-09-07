@@ -105,8 +105,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/js/gamer.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="364">
-                  <caret line="292" column="9" lean-forward="true" selection-start-line="292" selection-start-column="9" selection-end-line="292" selection-end-column="9" />
+                <state relative-caret-position="-1073">
+                  <caret line="285" column="9" selection-start-line="285" selection-start-column="9" selection-end-line="285" selection-end-column="9" />
                   <folding>
                     <element signature="e#109#778#0" />
                   </folding>
@@ -315,16 +315,15 @@
       <workItem from="1535642386077" duration="1652000" />
       <workItem from="1535665174948" duration="6046000" />
       <workItem from="1535742840500" duration="4247000" />
-      <workItem from="1536287184454" duration="12603000" />
+      <workItem from="1536287184454" duration="12859000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="169518000" />
+    <option name="totallyTimeSpent" value="169774000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.119802676" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -447,8 +446,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/js/gamer.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="364">
-          <caret line="292" column="9" lean-forward="true" selection-start-line="292" selection-start-column="9" selection-end-line="292" selection-end-column="9" />
+        <state relative-caret-position="-1073">
+          <caret line="285" column="9" selection-start-line="285" selection-start-column="9" selection-end-line="285" selection-end-column="9" />
           <folding>
             <element signature="e#109#778#0" />
           </folding>

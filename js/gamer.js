@@ -278,13 +278,12 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
         console.log('diferencia x '+ diferenciaX+', size'+size);
 
 
-        if(diferenciaX <= size && diferenciaY <= size && diferenciaXCompetidor <= largo && diferenciaY <= size){
+        if(diferenciaX <= size && diferenciaY <= size && diferenciaX <= largo && diferenciaY <= size){
             ctx.font = "bold 30px sans-serif";
             ctx.fillText("+1",1600,50);
             objetoVisibilidad = false;
             competidores[0].serObjetoVisibilidad(false);
         }
-
     };
 
     var dibujarObstaculos = function(progreso){
