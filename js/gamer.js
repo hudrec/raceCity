@@ -273,7 +273,6 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
         //console.log('posicion y: '+(pista.height/2+150)+'- '+y);
 
         var diferenciaX = Math.abs((960+posicionX-largo/2) - x);
-        var diferenciaXCompetidor = Math.abs((960+competidor[0].getPosicionX()-largo/2) - x);
         var diferenciaY = Math.abs((pista.height/2+150) - y);
         console.log('diferencia x '+ diferenciaX+', size'+size);
 
