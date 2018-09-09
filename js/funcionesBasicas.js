@@ -29,9 +29,10 @@ function empezar(){
 }
 
 function dibujarChofer(indice){
-
+    // ctx.fillText('dibujar jugador',320,500);
     var playerImage = jugadores[indice].getImagenJugador();
     playerImage.onload = function() {
+        // ctx.fillText('load imagen',320,400);
         ctx.drawImage(playerImage, 960*indice + 250,40,320,300);
     };
     ctx.fillText(jugadores[indice].getNombre(),960*indice + 320,500);
@@ -40,10 +41,10 @@ function dibujarChofer(indice){
 }
 
 function irSalaDeEspera() {
-    // ctx = document.getElementById("auto").getContext("2d");
+    var ctx = document.getElementById("auto").getContext("2d");
     dibujarChofer(jugadores.length - 1);
 
-    if(jugadores.length < 2){
+    if(jugadores.length > 1){
         //BOTON INICIAR
         var iniciar = new Image();
         iniciar.src = "img/forms/iniciar.png";
@@ -62,29 +63,41 @@ function irSalaDeEspera() {
 }
 
 function conectarJugador(nombre,color, idJugador) {
-
+    var ctx = document.getElementById("auto").getContext("2d");
     var ctx1 = document.getElementById("auto1").getContext("2d");
+    var jugador = null;
     if(jugadores.length == 0){
-        var jugador = new raceCityJugador(ctx,idJugador,nombre,color,100);
+        try {
+            jugador = raceCityJugador(ctx, idJugador, nombre, color, 100);
+        }
+        catch (e) {
+            ctx.fillText(e.message,320,600);
+
+        }
     }
     else{
-        var jugador = new raceCityJugador(ctx1,idJugador,nombre,color,-100);
+        try {
+            jugador = raceCityJugador(ctx1, idJugador, nombre, color, 100);
+        }
+        catch (e) {
+            ctx.fillText(e.message,520,600);
+
+        }
+
     }
     
-    //jugador.setearColor(color);
 
     switch (jugadores.length){
         //ES EL PRIMER JUGADOR
         case 0:
             jugadores.push(jugador);
             irSalaDeEspera();
-            
             break;
         // ES EL SEGUNDO JUGADOR
         case 1:
             jugadores.push(jugador);
             irSalaDeEspera();
-            empezar();
+            //empezar();
             break;
         // SALA LLENA, NO PUEDE CONECTARSE
         case 2:
