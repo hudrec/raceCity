@@ -1,5 +1,4 @@
 function empezar(){
-    ctx.canvas.height = tvAncho/2;
     //document.getElementById("auto").style.height = "540px";
     // ctx = document.getElementById("auto").getContext("2d");
     //context.clearRect(0, 0, canvas.width, canvas.height);
@@ -11,15 +10,17 @@ function empezar(){
         
         
     setTimeout(function(){
-        ctx.clearRect(0, 0, tvLargo,tvAncho/2);
+        ctx.clearRect(0, 0, tvLargo,tvAncho);
+        ctx.canvas.height = tvAncho/2;
+
         //jugador1.dibujar(0);
         jugador1.jugar();
         jugador2.jugar();
         setTimeout(function(){
             jugador1.arrancar();
             jugador2.arrancar();
-        },2000);
-    },2000);
+        },3000);
+    },3000);
 
     //jugador2.arrancar();
     
@@ -68,7 +69,7 @@ function conectarJugador(nombre,color, idJugador) {
     var jugador = null;
     if(jugadores.length == 0){
         try {
-            jugador = raceCityJugador(ctx, idJugador, nombre, color, 100);
+            jugador = raceCityJugador(ctx, idJugador, nombre, color, -150);
         }
         catch (e) {
             ctx.fillText(e.message,320,600);
@@ -77,7 +78,7 @@ function conectarJugador(nombre,color, idJugador) {
     }
     else{
         try {
-            jugador = raceCityJugador(ctx1, idJugador, nombre, color, 100);
+            jugador = raceCityJugador(ctx1, idJugador, nombre, color, 150);
         }
         catch (e) {
             ctx.fillText(e.message,520,600);
@@ -97,7 +98,7 @@ function conectarJugador(nombre,color, idJugador) {
         case 1:
             jugadores.push(jugador);
             irSalaDeEspera();
-            //empezar();
+            empezar();
             break;
         // SALA LLENA, NO PUEDE CONECTARSE
         case 2:
