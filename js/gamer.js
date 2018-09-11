@@ -269,20 +269,31 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
         var largo = car.width*carScale;
         var pista = raceCityRoad.obtener_imagen(indice);
 
-        console.log('posicion x: '+(960+posicionX-largo/2)+'- '+x);
         //console.log('posicion y: '+(pista.height/2+150)+'- '+y);
 
         var diferenciaX = Math.abs((960+posicionX-largo/2) - x);
         var diferenciaY = Math.abs((pista.height/2+150) - y);
         console.log('diferencia x '+ diferenciaX+', size'+size);
 
+        if(posicionX < 0) {
+            //escenario de arriba
+            if(diferenciaX <= largo && diferenciaY <= size ){
+                ctx.font = "bold 30px sans-serif";
+                ctx.fillText("+1",1600,50);
+                objetoVisibilidad = false;
+                competidores[0].serObjetoVisibilidad(false);
+            }
 
-        if(diferenciaX <= size && diferenciaY <= size && diferenciaX <= largo && diferenciaY <= size){
-            ctx.font = "bold 30px sans-serif";
-            ctx.fillText("+1",1600,50);
-            objetoVisibilidad = false;
-            competidores[0].serObjetoVisibilidad(false);
+        }else {
+            //escenario de abajo
+            if(diferenciaX <= size && diferenciaY <= size ){
+                ctx.font = "bold 30px sans-serif";
+                ctx.fillText("+1",1600,50);
+                objetoVisibilidad = false;
+                competidores[0].serObjetoVisibilidad(false);
+            }
         }
+
     };
 
     var dibujarObstaculos = function(progreso){
