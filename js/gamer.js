@@ -287,7 +287,12 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
 
         // renderizo el carro
         if (progreso < competidores[0].getPosicionY()){
+            console.log('indice',indice);
             dibujarCarro(indice, pista);
+            if (mapaDistancia == 1){
+                //DIBUJAR EL CARRO SALIENDO DE LA PISTA
+            }
+
         }
         // renderizo a la competencia
         for (var i=0; i<competidores.length; i++){
