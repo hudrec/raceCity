@@ -212,10 +212,6 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
         var car = imagenCarro(indice);
         var largo = car.width*carScale;
         var ancho = car.height*carScale;
-        //console.log("pista height: "+(pista.height/2+150));
-        //console.log("x : "+(960+posicionX-largo/2));
-        //console.log("largo: "+largo);
-        //console.log("ancho: "+ancho);
         var carPosX = 960+posicionX-largo/2;
         var carPosY = pista.height/2+150;
         if (carPosY < 541){
