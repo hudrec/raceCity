@@ -295,25 +295,60 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
         }
 
     };
+    
+    var dibujarHongo = function(contexto, pos){
+        var escala = carScale;
+
+        var distancia = progreso - pos;
+
+        var aumentoY = 0;
+
+        if(Math.abs(distancia) > 15)
+            return;
+
+        if(distancia < 0){
+            //escala maxima = 3;
+            escala += Math.abs(distancia) * 0.1533;
+            aumentoY = distancia * 10 * -1;
+        } else if (distancia > 0){
+            //escala = 0.3;
+            escala -= distancia * 0.02667;
+            aumentoY = distancia * 3.333 * -1;
+        }
+        //calculo mi posicion relativa
+        var car = imagenCarro(progreso);
+
+        //calcular en base a la diferencia
+        var largo = car.width * escala;
+        var ancho = car.height * escala;
+
+        var pista = raceCityRoad.obtener_imagen(progreso);
+        var carX = 960 + posicionX - largo/2;
+        var carY = (pista.height/2) + 150 + aumentoY;
+
+        if (carY < 540) //solo cuando este dentro de la cancha
+        {
+            contexto.drawImage(car, carX, carY, largo, ancho);
+        }
+
+    };
+
+    
 
     var dibujarObstaculos = function(progreso){
-        //ruta_completa = [["R",100],["D",10],["R",10],["I",10]]
-        //Recto = progreso 19 - 599
-        //Derecha = progreso 
-        //Recto = progreso
-        //Izquierda = progreso
         var obs = new Image();
         obs.src = "img/seta.png";
         estadoActual = raceCityRoad.pista_total[progreso][0].split("")[0];
-        /*var aleatorio = Math.floor(Math.random() * (10 - 1)) + 1;
-            if(aleatorio == 2){
-                ctx.drawImage(obs,0,300, 100, 100);
-            }*/
+       
         if (estadoActual === "R"){
             //console.log("R: "+progreso);
 
-
-            if(progreso >= 21 && progreso <= 30 && objetoVisibilidad){
+            if (progreso >= 21 && progreso <= 130){
+                var add = Math.trunc((progreso-21)/5)
+                ctx.drawImage(obs,tvLargo/2,207 + 20*(add), 20 + 10*(add), 20+ 10*(add));
+                //colisionObjetos(progreso, tvLargo/2, 207 + 20*(add), 38.5);
+            }
+            /*if(progreso >= 21 && progreso <= 30 && objetoVisibilidad){
                 ctx.drawImage(obs,tvLargo/2,207, 20, 20);
 
             }else if(progreso >= 31 && progreso <=40 && objetoVisibilidad){
@@ -349,7 +384,7 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
 
             }else if(progreso >= 121 && progreso <= 130 && objetoVisibilidad){
                 ctx.drawImage(obs,tvLargo/2,407, 120, 120);
-            }
+            }*/
 
         }else if(estadoActual === "D"){
             //console.log("D: "+progreso);
