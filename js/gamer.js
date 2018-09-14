@@ -296,127 +296,33 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
 
     };
     
-    var dibujarHongo = function(contexto, pos){
+    var dibujarHongo = function(contexto){
         var escala = carScale;
 
-        var distancia = progreso - pos;
+        var distancia = progreso - current_hongo;
 
         var aumentoY = 0;
 
-        if(Math.abs(distancia) > 15)
-            return;
-
-        if(distancia < 0){
-            //escala maxima = 3;
-            escala += Math.abs(distancia) * 0.1533;
-            aumentoY = distancia * 10 * -1;
-        } else if (distancia > 0){
-            //escala = 0.3;
-            escala -= distancia * 0.02667;
-            aumentoY = distancia * 3.333 * -1;
-        }
-        //calculo mi posicion relativa
-        var car = imagenCarro(progreso);
-
-        //calcular en base a la diferencia
-        var largo = car.width * escala;
-        var ancho = car.height * escala;
-
-        var pista = raceCityRoad.obtener_imagen(progreso);
-        var carX = 960 + posicionX - largo/2;
-        var carY = (pista.height/2) + 150 + aumentoY;
-
-        if (carY < 540) //solo cuando este dentro de la cancha
-        {
-            contexto.drawImage(car, carX, carY, largo, ancho);
-        }
-
-    };
-
-    
-
-    var dibujarObstaculos = function(progreso){
+        
+        escala += distancia * 0.1533;
+        //aumentoY = distancia * 10 * -1;
+        
+        //declaro el obstaculo
         var obs = new Image();
         obs.src = "img/seta.png";
-        estadoActual = raceCityRoad.pista_total[progreso][0].split("")[0];
-       
-        if (estadoActual === "R"){
-            //console.log("R: "+progreso);
+        //calcular en base a la diferencia
+        var largo = 20 * escala;
+        var ancho = 20 * escala;
 
-            if (progreso >= 21 && progreso <= 130){
-                var add = Math.trunc((progreso-21)/5)
-                ctx.drawImage(obs,tvLargo/2,207 + 20*(add), 20 + 10*(add), 20+ 10*(add));
-                //colisionObjetos(progreso, tvLargo/2, 207 + 20*(add), 38.5);
-            }
-            /*if(progreso >= 21 && progreso <= 30 && objetoVisibilidad){
-                ctx.drawImage(obs,tvLargo/2,207, 20, 20);
+        var pista = raceCityRoad.obtener_imagen(progreso);
+        var obsX = 960 + Math.trunc(Math.random() * (200));
+        var obsY = 216 + (distancia*2);
 
-            }else if(progreso >= 31 && progreso <=40 && objetoVisibilidad){
-                ctx.drawImage(obs,tvLargo/2,227, 30, 30);
-
-            }else if(progreso >= 41 && progreso <= 50 && objetoVisibilidad){
-                ctx.drawImage(obs,tvLargo/2,247, 40, 40);
-
-
-            }else if(progreso >= 51 && progreso <= 60 && objetoVisibilidad){
-                ctx.drawImage(obs,tvLargo/2,267, 50, 50);
-                colisionObjetos(progreso, tvLargo/2, 267, 38.5);
-
-            }else if(progreso >= 61 && progreso <= 70 && objetoVisibilidad){
-                ctx.drawImage(obs,tvLargo/2,287, 60, 60);
-                colisionObjetos(progreso, tvLargo/2, 287, 58.5);
-
-            }else if(progreso >= 71 && progreso <= 80 && objetoVisibilidad ){
-                ctx.drawImage(obs,tvLargo/2,307, 70, 70);
-                colisionObjetos(progreso, tvLargo/2, 307, 70);
-
-            }else if(progreso >= 81 && progreso <= 90 && objetoVisibilidad){
-                ctx.drawImage(obs,tvLargo/2,327, 80, 80);
-
-            }else if(progreso >= 91 && progreso <= 100 && objetoVisibilidad){
-                ctx.drawImage(obs,tvLargo/2,347, 90, 90);
-
-            }else if(progreso >= 101 && progreso <= 110 && objetoVisibilidad){
-                ctx.drawImage(obs,tvLargo/2,367, 100, 100);
-
-            }else if(progreso >= 111 && progreso <= 120 && objetoVisibilidad){
-                ctx.drawImage(obs,tvLargo/2,387, 110, 110);
-
-            }else if(progreso >= 121 && progreso <= 130 && objetoVisibilidad){
-                ctx.drawImage(obs,tvLargo/2,407, 120, 120);
-            }*/
-
-        }else if(estadoActual === "D"){
-            //console.log("D: "+progreso);
-
-            if(progreso >= 600 && progreso <= 610 && objetoVisibilidad2){
-                ctx.drawImage(obs,(tvLargo/2)+200,207, 20, 20);
-
-            }else if(progreso >= 611 && progreso <= 620 && objetoVisibilidad2){
-                ctx.drawImage(obs,(tvLargo/2)+170,227, 30, 30);
-
-            }else if(progreso >= 621 && progreso <= 630 && objetoVisibilidad2){
-                ctx.drawImage(obs,(tvLargo/2)+140,247, 40, 40);
-                //colisionObjetos(progreso, (tvLargo/2)+340 , 247, 38.5);
-
-            }else if(progreso >= 631 && progreso <= 640 && objetoVisibilidad2){
-                ctx.drawImage(obs,(tvLargo/2)+110,267, 50, 50);
-            }else if(progreso >= 641 && progreso <= 650 && objetoVisibilidad2){
-                ctx.drawImage(obs,(tvLargo/2)+140,287, 60, 60);
-            }else if(progreso >= 651 && progreso <= 660 && objetoVisibilidad2){
-                ctx.drawImage(obs,(tvLargo/2)+170,307, 70, 70);
-            }else if(progreso >= 661 && progreso <= 670 && objetoVisibilidad2){
-                ctx.drawImage(obs,(tvLargo/2)+200,327, 80, 80);
-            }else if(progreso >= 671 && progreso <= 680 && objetoVisibilidad2){
-                ctx.drawImage(obs,(tvLargo/2)+230,347, 90, 90);
-            }
-
-
-        }else if(estadoActual === "I"){
-            //console.log("I: "+progreso);
-            ctx.drawImage(obs,(tvLargo/2)-400,207, 20, 20);
-
+        if (obsY < 540) //solo cuando este dentro de la cancha
+        {
+            contexto.drawImage(obs, tvLargo/2 - largo/2, obsY, largo, ancho);
         }
+
     };
 
     //indice: posicion de la imagen de la pista
@@ -429,8 +335,28 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
         // renderizo la pista actual
         var pista = raceCityRoad.obtener_imagen(indice);
         ctx.drawImage(pista,0,217,tvLargo,(tvAncho/2)-217);
-
-        dibujarObstaculos(indice);
+        
+        console.log(ubicacion_objetos);
+        if (progreso > current_hongo){
+            if ((progreso - current_hongo) < 40){
+                dibujarHongo(ctx);
+            }
+            else{
+                ubicacion_objetos.find(function(posObstaculo){
+                    if (posObstaculo == progreso){
+                        current_hongo = posObstaculo;
+                    }
+                })
+            }
+            
+        }
+        
+        ubicacion_objetos.find(function(posObstaculo){
+            if (posObstaculo == progreso){
+                dibujarHongo(ctx,posObstaculo);
+            }
+        })
+        //dibujarObstaculos(indice);
 
         // renderizo el carro
         if (progreso < competidores[0].getPosicionY()){

@@ -69,6 +69,29 @@
 
 var ruta_completa = [["R",100],["D",10],["R",10],["I",10]];
 
+var longitud_total = 0 
+for(var n=0; n< ruta_completa.length; n++) {
+    if (ruta_completa[n][0] === "R"){
+        longitud_total += ruta_completa[n][1]*6
+    }
+    if ((ruta_completa[n][0] === "D") || (ruta_completa[n][0] === "I")){
+        longitud_total += ruta_completa[n][1]*18
+    }
+}
+
+var longitud_objetos = Math.trunc(longitud_total/100);
+var ubicacion_objetos = [];
+
+console.log('long',longitud_objetos)
+for(var m=0; m< longitud_objetos; m++) {
+    ubicacion_objetos.push(Math.trunc(Math.random() * (longitud_total)));
+}
+
+ubicacion_objetos.sort(function(a,b){return a-b});
+
+var current_hongo = ubicacion_objetos[0]
+
+
 var raceCityRoad = function(ruta_completa) {
     // ruta_completa = [["R",10],["D",10], ["R",10],["I",10]]
     var indice_derecha = "D";
