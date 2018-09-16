@@ -67,7 +67,7 @@
     }
 }();
 
-var ruta_completa = [["R",10],["D",10],["R",10],["I",10],["C",1]];
+var ruta_completa = [["R",200],["C",1]];
 
 var longitud_total = 0 
 for(var n=0; n< ruta_completa.length; n++) {
@@ -82,7 +82,6 @@ for(var n=0; n< ruta_completa.length; n++) {
 var longitud_objetos = Math.trunc(longitud_total/100);
 var ubicacion_objetos = [];
 
-console.log('long',longitud_objetos)
 for(var m=0; m< longitud_objetos; m++) {
     ubicacion_objetos.push(Math.trunc(Math.random() * (longitud_total)));
 }

@@ -299,7 +299,7 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
 
     };
 
-    var dibujarHongo = function(contexto){
+    var dibujarObjeto = function(contexto){
         var escala = carScale;
 
         var distancia = progreso - current_hongo;
@@ -324,6 +324,7 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
         if (obsY < 540) //solo cuando este dentro de la cancha
         {
             contexto.drawImage(obs, tvLargo/2 - largo/2, obsY, largo, ancho);
+            colisionObjetos(progreso,tvLargo/2,obsY,largo);
         }
 
     };
@@ -345,7 +346,8 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
 
         if (progreso > current_hongo){
             if ((progreso - current_hongo) < 40){
-                dibujarHongo(ctx);
+                dibujarObjeto(ctx);
+
             }
             else{
                 ubicacion_objetos.find(function(posObstaculo){
@@ -359,7 +361,7 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
 
         ubicacion_objetos.find(function(posObstaculo){
             if (posObstaculo == progreso){
-                dibujarHongo(ctx,posObstaculo);
+                dibujarObjeto(ctx,posObstaculo);
             }
         })
         // renderizo el carro
