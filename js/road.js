@@ -83,12 +83,15 @@ var longitud_objetos = Math.trunc(longitud_total/100);
 var ubicacion_objetos = [];
 
 for(var m=0; m< longitud_objetos; m++) {
-    ubicacion_objetos.push(Math.trunc(Math.random() * (longitud_total)));
+    var yRandom = Math.trunc(Math.random() * (longitud_total));
+    var xRandom = Math.trunc(Math.random() * (90))*(Math.random() < 0.5 ? -1 : 1)
+    ubicacion_objetos.push([xRandom,yRandom]);
 }
+console.log('objetos',ubicacion_objetos)
 
-ubicacion_objetos.sort(function(a,b){return a-b});
+ubicacion_objetos.sort(function(a,b){return a[1]-b[1]});
 
-var current_hongo = ubicacion_objetos[0]
+var current_hongo = ubicacion_objetos[1]
 
 
 var raceCityRoad = function(ruta_completa) {
@@ -105,7 +108,6 @@ var raceCityRoad = function(ruta_completa) {
 
     for(var i=0; i< ruta_completa.length; i++) {
         if (ruta_completa[i][0] === indice_cerrar){
-            console.log('cerrrar');
             for(var j=0; j<raceCityRoadTemplate.pista_cerrar.length; j++) {
                 pista_total.push([ruta_completa[i][0], j]);
             }

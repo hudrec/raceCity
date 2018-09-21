@@ -260,7 +260,6 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
 
         if (carY < 280) //solo cuando este dentro de la cancha
         {
-            console.log(carY);
             contexto.drawImage(car, carX, carY, largo, ancho);
         }
 
@@ -276,7 +275,7 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
 
         var diferenciaX = Math.abs((960+posicionX-largo/2) - x);
         var diferenciaY = Math.abs((pista.height/2+150) - y);
-        console.log('diferencia x '+ diferenciaX+', size'+size);
+        //console.log('diferencia x '+ diferenciaX+', size'+size);
 
         if(posicionX < 0) {
             //escenario de arriba
@@ -302,28 +301,31 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
     var dibujarObjeto = function(contexto){
         var escala = carScale;
 
-        var distancia = progreso - current_hongo;
+        var distancia = progreso - current_hongo[1];
 
         var aumentoY = 0;
 
 
-        escala += distancia * 0.1533;
+        escala += distancia * 0.15;
+        console.log('escala',escala);
         //aumentoY = distancia * 10 * -1;
 
         //declaro el obstaculo
         var obs = new Image();
         obs.src = "img/seta.png";
         //calcular en base a la diferencia
-        var largo = 20 * escala;
-        var ancho = 20 * escala;
+        var largo = 10*escala;
+        var ancho = 10*escala;
 
         var pista = raceCityRoad.obtener_imagen(progreso);
-        var obsX = 960 + Math.trunc(Math.random() * (200));
-        var obsY = 216 + (distancia*2);
+        var obsX = tvLargo/2 + current_hongo[0];
+        var obsY = 216 + (distancia*4);
+        
+        
 
         if (obsY < 540) //solo cuando este dentro de la cancha
         {
-            contexto.drawImage(obs, tvLargo/2 - largo/2, obsY, largo, ancho);
+            contexto.drawImage(obs, obsX, obsY, largo, ancho);
             colisionObjetos(progreso,tvLargo/2,obsY,largo);
         }
 
@@ -342,16 +344,15 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
         ctx.font = "50px Arial";
         var mapaDistancia = raceCityRoad.pista_total.length - progreso ;
         ctx.fillText('DISTANCIA: '+ mapaDistancia,70,280);
-        ctx.fillText('VELOCIDAD: '+ velocidadActual,70,370);
 
-        if (progreso > current_hongo){
-            if ((progreso - current_hongo) < 40){
+        if (progreso > current_hongo[1]){
+            if ((progreso - current_hongo[1]) < 40){
                 dibujarObjeto(ctx);
 
             }
             else{
                 ubicacion_objetos.find(function(posObstaculo){
-                    if (posObstaculo == progreso){
+                    if (posObstaculo[1] == progreso){
                         current_hongo = posObstaculo;
                     }
                 })
@@ -366,7 +367,7 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
         })
         // renderizo el carro
         if (progreso < competidores[0].getPosicionY()){
-            console.log('indice',indice);
+            //console.log('indice',indice);
             dibujarCarro(indice, pista);
             if (mapaDistancia == 1){
                 //DIBUJAR EL CARRO SALIENDO DE LA PISTA
