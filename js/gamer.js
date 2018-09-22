@@ -307,7 +307,7 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
 
 
         escala += distancia * 0.15;
-        console.log('escala',escala);
+        console.log('escala',distancia);
         //aumentoY = distancia * 10 * -1;
 
         //declaro el obstaculo
@@ -318,8 +318,14 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
         var ancho = 10*escala;
 
         var pista = raceCityRoad.obtener_imagen(progreso);
-        var obsX = tvLargo/2 + current_hongo[0];
         var obsY = 216 + (distancia*4);
+        if (current_hongo[0] > 0){
+            var obsX = tvLargo/2 + ((obsY - current_hongo[0])/(2,5)) ;
+        }
+        else{
+            var obsX = tvLargo/2 + ((obsY - current_hongo[0])/(2,5));
+        }
+        
         
         
 
