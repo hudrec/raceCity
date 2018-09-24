@@ -319,12 +319,19 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
 
         var pista = raceCityRoad.obtener_imagen(progreso);
         var obsY = 216 + (distancia*4);
-        if (current_hongo[0] > 0){
-            var obsX = tvLargo/2 + ((obsY - current_hongo[0])/(2,5)) ;
-        }
-        else{
-            var obsX = tvLargo/2 + ((obsY - current_hongo[0])/(2,5));
-        }
+        var xp = current_hongo[0]*9.6;
+        var m = -324/(xp - current_hongo[0]);
+        var n = current_hongo[0]*m;
+        var obsX = tvLargo/2 - ((obsY - n)/m) ;
+        console.log('obs x ', obsX);
+        // if (current_hongo[0] > 0){
+        //
+        //     console.log('obs x ', obsX);
+        //     // var obsX = tvLargo/2;
+        // }
+        // else{
+        //     var obsX = tvLargo/2 + current_hongo[0] - ((obsY + 37.8)/(0,42));
+        // }
         
         
         
