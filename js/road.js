@@ -67,7 +67,32 @@
     }
 }();
 
-var ruta_completa = [["R",150]];
+var ruta_completa = [["R",200],["C",1]];
+
+var longitud_total = 0
+for(var n=0; n< ruta_completa.length; n++) {
+    if (ruta_completa[n][0] === "R"){
+        longitud_total += ruta_completa[n][1]*6
+    }
+    if ((ruta_completa[n][0] === "D") || (ruta_completa[n][0] === "I")){
+        longitud_total += ruta_completa[n][1]*18
+    }
+}
+
+var longitud_objetos = Math.trunc(longitud_total/100);
+var ubicacion_objetos = [];
+
+for(var m=0; m< longitud_objetos; m++) {
+    var yRandom = Math.trunc(Math.random() * (longitud_total));
+    var xRandom = Math.trunc(Math.random() * (90))*(Math.random() < 0.5 ? -1 : 1)
+    ubicacion_objetos.push([xRandom,yRandom]);
+}
+console.log('objetos',ubicacion_objetos)
+
+ubicacion_objetos.sort(function(a,b){return a[1]-b[1]});
+
+var current_hongo = ubicacion_objetos[1]
+
 
 var raceCityRoad = function(ruta_completa) {
     // ruta_completa = [["R",10],["D",10], ["R",10],["I",10]]
