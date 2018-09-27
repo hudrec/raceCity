@@ -34,8 +34,11 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
     var color = jcolor;
     var id = idJugador;
     var progreso = 20;
+
+    //obstaculos
     var honguito = current_hongo;
     var visibilidadHonguito = [];
+    var contadorHoguito = 0;
     for(var i = 0; i < ubicacion_objetos.length; i++){
         visibilidadHonguito[ubicacion_objetos[i]] = true;
     }
@@ -94,7 +97,11 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
             }
 
         }else{
-            progreso += 1;
+            if(contadorHoguito > 0) {
+                progreso += 2;
+                contadorHoguito -= 1;
+            }
+
         }
     };
 
@@ -284,8 +291,10 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
             //escenario de arriba
             if(diferenciaX <= largo && diferenciaY <= size ){
                 ctx.font = "bold 30px sans-serif";
-                ctx.fillText("HUBO COLISION!!!!!",1600,50);
+                ctx.fillText("+1",1400,270);
+                ctx.fillText("+1",1400,270);
                 visibilidadHonguito[honguito] = false;
+                contadorHoguito +=1;
                 competidores[0].setObjetoVisibilidad(honguito);
             }
 
@@ -293,8 +302,10 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
             //escenario de abajo
             if(diferenciaX <= size && diferenciaY <= size ){
                 ctx.font = "bold 30px sans-serif";
-                ctx.fillText("HUBO COLISION!!!!!",1600,50);
+                ctx.fillText("+1",1400,270);
+                ctx.fillText("+1",1400,270);
                 visibilidadHonguito[honguito] = false;
+                contadorHoguito +=1;
                 competidores[0].setObjetoVisibilidad(honguito);
             }
         }
@@ -443,6 +454,7 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
         progreso++;
         ctx.font = "bold 30px sans-serif";
         ctx.fillText("Velocidad Actual: "+velocidadActual,50,50);
+        ctx.fillText("Num. honguitos: "+contadorHoguito,1600,50);
         if(progreso >= raceCityRoad.pista_total.length ){
             // termino!!
             return;
