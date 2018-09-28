@@ -34,6 +34,14 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
     var color = jcolor;
     var id = idJugador;
     var progreso = 20;
+
+    //obstaculos
+    var honguito = current_hongo[1];
+    var visibilidadHonguito = [];
+    var contadorHoguito = 0;
+    for(var i = 0; i < ubicacion_objetos.length; i++){
+        visibilidadHonguito[ubicacion_objetos[i][1]] = true;
+    }
     var posicionX = 0;
     if (initialPos) {
         posicionX = initialPos;
@@ -75,9 +83,6 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
     // competidores
     var competidores = [];
 
-    var objetoVisibilidad=true;
-    var objetoVisibilidad2=true;
-
     var setCompetidores = function(list){
         competidores = list
     };
@@ -92,7 +97,12 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
             }
 
         }else{
+            // if(contadorHoguito > 0) {
+            //     progreso += 1;
+            //     contadorHoguito -= 1;
+            // }
             progreso += 1;
+
         }
     };
 
@@ -275,24 +285,28 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
 
         var diferenciaX = Math.abs((960+posicionX-largo/2) - x);
         var diferenciaY = Math.abs((pista.height/2+150) - y);
-        //console.log('diferencia x '+ diferenciaX+', size'+size);
+        //console.log('diferencia x '+ diferenciaY+', size'+size);
 
         if(posicionX < 0) {
             //escenario de arriba
             if(diferenciaX <= largo && diferenciaY <= size ){
                 ctx.font = "bold 30px sans-serif";
-                ctx.fillText("+1",1600,50);
-                objetoVisibilidad = false;
-                competidores[0].serObjetoVisibilidad(false);
+                ctx.fillText("+1",1400,270);
+                ctx.fillText("+1",1400,270);
+                visibilidadHonguito[honguito] = false;
+                contadorHoguito +=1;
+                competidores[0].setObjetoVisibilidad(honguito);
             }
 
         }else {
             //escenario de abajo
             if(diferenciaX <= size && diferenciaY <= size ){
                 ctx.font = "bold 30px sans-serif";
-                ctx.fillText("+1",1600,50);
-                objetoVisibilidad = false;
-                competidores[0].serObjetoVisibilidad(false);
+                ctx.fillText("+1",1400,270);
+                ctx.fillText("+1",1400,270);
+                visibilidadHonguito[honguito] = false;
+                contadorHoguito +=1;
+                competidores[0].setObjetoVisibilidad(honguito);
             }
         }
 
@@ -307,7 +321,6 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
 
 
         escala += distancia * 0.15;
-        console.log('escala',distancia);
         //aumentoY = distancia * 10 * -1;
 
         //declaro el obstaculo
@@ -327,7 +340,7 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
         if (obsY < 540) //solo cuando este dentro de la cancha
         {
             contexto.drawImage(obs, obsX, obsY, largo, ancho);
-            colisionObjetos(progreso,tvLargo/2,obsY,largo);
+            colisionObjetos(progreso,obsX,obsY,largo);
         }
 
     };
@@ -345,9 +358,10 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
         ctx.font = "bold 30px Symtext";
         var mapaDistancia = raceCityRoad.pista_total.length - progreso ;
         ctx.fillText('DISTANCIA: '+ mapaDistancia,1600,50);
+        console.log(progreso,current_hongo[1]);
 
         if (progreso > current_hongo[1]){
-            if ((progreso - current_hongo[1]) < 59){
+            if (((progreso - current_hongo[1]) < 59) && (visibilidadHonguito[honguito])){
                 dibujarObjeto(ctx);
 
             }
@@ -361,11 +375,11 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
 
         }
 
-        ubicacion_objetos.find(function(posObstaculo){
-            if (posObstaculo == progreso){
-                dibujarObjeto(ctx,posObstaculo);
-            }
-        })
+        // ubicacion_objetos.find(function(posObstaculo){
+        //     if (posObstaculo[1] == progreso && visibilidadHonguito[honguito] == true){
+        //         dibujarObjeto(ctx);
+        //     }
+        // })
         // renderizo el carro
         if (progreso < competidores[0].getPosicionY()){
             //console.log('indice',indice);
@@ -442,6 +456,7 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
         progreso++;
         ctx.font = "bold 30px Symtext";
         ctx.fillText("Velocidad Actual: "+velocidadActual,50,50);
+        ctx.fillText("Num. honguitos: "+contadorHoguito,1600,100);
         if(progreso >= raceCityRoad.pista_total.length ){
             // termino!!
             if (progreso > competidores[0].getProgreso()){
@@ -518,7 +533,11 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
 
 
     var setObjetoVisibilidad = function(valor){
-        objetoVisibilidad = valor;
+        visibilidadHonguito[valor] = false;
+    };
+
+    var getCurrentHongo = function () {
+        return honguito;
     };
 
     return {
@@ -544,6 +563,7 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
         getImagenJugador: getImagenJugador,
         getNombre: getNombre,
         getId: getId,
-        serObjetoVisibilidad:setObjetoVisibilidad
+        setObjetoVisibilidad: setObjetoVisibilidad,
+        getCurrentHongo: getCurrentHongo
     }
 };
