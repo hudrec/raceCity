@@ -67,7 +67,7 @@
     }
 }();
 
-var ruta_completa = [["R",40],["D",10],["C",1]];
+var ruta_completa = [["R",100],["C",1]];
 
 var longitud_total = 0 
 for(var n=0; n< ruta_completa.length; n++) {
