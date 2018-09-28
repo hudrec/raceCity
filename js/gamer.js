@@ -36,9 +36,10 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
     var progreso = 20;
 
     //obstaculos
-    var honguito = current_hongo[1];
+    var honguito = current_hongo;
     var visibilidadHonguito = [];
     var contadorHoguito = 0;
+    //console.log(ubicacion_objetos);
     for(var i = 0; i < ubicacion_objetos.length; i++){
         visibilidadHonguito[ubicacion_objetos[i][1]] = true;
     }
@@ -101,7 +102,11 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
             //     progreso += 1;
             //     contadorHoguito -= 1;
             // }
-            progreso += 1;
+            if(contadorHoguito > 0) {
+                progreso += 2;
+                contadorHoguito -=1;
+            }
+
 
         }
     };
@@ -280,12 +285,12 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
         var car = imagenCarro(indice);
         var largo = car.width*carScale;
         var pista = raceCityRoad.obtener_imagen(indice);
-
-        //console.log('posicion y: '+(pista.height/2+150)+'- '+y);
+        //console.log('posicion x: '+(960+posicionX-largo/2)+'- '+x+' = '+size);
+        //console.log('posicion y: '+(pista.height/2+150)+'- '+y+' = '+size);
 
         var diferenciaX = Math.abs((960+posicionX-largo/2) - x);
-        var diferenciaY = Math.abs((pista.height/2+150) - y);
-        //console.log('diferencia x '+ diferenciaY+', size'+size);
+        var diferenciaY = Math.abs(280 - y);
+        //console.log('diferencia x '+ diferenciaX+', size'+size);
 
         if(posicionX < 0) {
             //escenario de arriba
@@ -293,9 +298,11 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
                 ctx.font = "bold 30px sans-serif";
                 ctx.fillText("+1",1400,270);
                 ctx.fillText("+1",1400,270);
-                visibilidadHonguito[honguito] = false;
+                visibilidadHonguito[honguito[1]] = false;
                 contadorHoguito +=1;
-                competidores[0].setObjetoVisibilidad(honguito);
+                competidores[0].setObjetoVisibilidad(honguito[1]);
+                console.log('colisiono');
+
             }
 
         }else {
@@ -304,9 +311,10 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
                 ctx.font = "bold 30px sans-serif";
                 ctx.fillText("+1",1400,270);
                 ctx.fillText("+1",1400,270);
-                visibilidadHonguito[honguito] = false;
+                visibilidadHonguito[honguito[1]] = false;
                 contadorHoguito +=1;
-                competidores[0].setObjetoVisibilidad(honguito);
+                competidores[0].setObjetoVisibilidad(honguito[1]);
+                console.log('colisiono');
             }
         }
 
@@ -315,7 +323,7 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
     var dibujarObjeto = function(contexto){
         var escala = carScale;
 
-        var distancia = progreso - current_hongo[1];
+        var distancia = progreso - honguito[1];
 
         var aumentoY = 0;
 
@@ -332,15 +340,15 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
 
         var pista = raceCityRoad.obtener_imagen(progreso);
         var obsY = 216 + (distancia*4);
-        var xp = current_hongo[0]*9.6;
-        var m = -324/(xp - current_hongo[0]);
-        var n = current_hongo[0]*m;
+        var xp = honguito[0]*9.6;
+        var m = -324/(xp - honguito[0]);
+        var n = honguito[0]*m;
         var obsX = tvLargo/2 - ((obsY - n - 216)/m) ;
 
         if (obsY < 540) //solo cuando este dentro de la cancha
         {
             contexto.drawImage(obs, obsX, obsY, largo, ancho);
-            colisionObjetos(progreso,obsX,obsY,largo);
+            colisionObjetos(progreso,obsX, obsY,largo);
         }
 
     };
@@ -358,17 +366,17 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
         ctx.font = "bold 30px Symtext";
         var mapaDistancia = raceCityRoad.pista_total.length - progreso ;
         ctx.fillText('DISTANCIA: '+ mapaDistancia,1600,50);
-        console.log(progreso,current_hongo[1]);
+        //console.log(progreso,honguito[1]);
 
-        if (progreso > current_hongo[1]){
-            if (((progreso - current_hongo[1]) < 59) && (visibilidadHonguito[honguito])){
+        if (progreso > honguito[1]){
+            if (((progreso - honguito[1]) < 59) && (visibilidadHonguito[honguito[1]])){
                 dibujarObjeto(ctx);
 
             }
             else{
                 ubicacion_objetos.find(function(posObstaculo){
                     if (posObstaculo[1] == progreso){
-                        current_hongo = posObstaculo;
+                        honguito = posObstaculo;
                     }
                 })
             }
