@@ -2,24 +2,25 @@ var tvLargo = 1920;
 var tvAncho = 1080;
 var snd = new Audio("sound.mp3");
 
-var raceCityCarImages = function(){
+var raceCityCarImages = function(color){
+    // var color = 'azul';
     var moverIzquierda = [];
     for (var i = 3; i >= 0; i--) {
         moverIzquierda[i] = new Image();
-        moverIzquierda[i].src = "img/cars_izq/auto_iz"+ String(i+1)+".png";
+        moverIzquierda[i].src = "img/autos/"+color+"/cars_izq/auto_izquierda_"+ String(i+1)+".png";
     }
 
     var moverDerecha = [];
     for (var i = 3; i >= 0; i--) {
         moverDerecha[i] = new Image();
-        moverDerecha[i].src = "img/cars_der/auto_de"+ String(i+1)+".png";
+        moverDerecha[i].src = "img/autos/"+color+"/cars_der/auto_derecha_"+ String(i+1)+".png";
     }
 
     var autoRecto = [];
     autoRecto[0] = new Image();
-    autoRecto[0].src = "img/Auto-1.png";
+    autoRecto[0].src = "img/autos/"+color+"/cars_rec/auto_1.png";
     autoRecto[1] = new Image();
-    autoRecto[1].src = "img/Auto-2.png";
+    autoRecto[1].src = "img/autos/"+color+"/cars_rec/auto_2.png";
 
 
     return {
@@ -27,7 +28,7 @@ var raceCityCarImages = function(){
         moverIzquierda: moverIzquierda,
         moverDerecha: moverDerecha
     }
-}();
+};
 
 //NOMBRE COLOR
 var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
@@ -178,7 +179,7 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
 
     var imagenCarro = function(indice) {
         var ciclosPorEtapa = 2;
-        var result;
+        var result = new raceCityCarImages(color);
         var realIndex;
         if(giro == ""){
             if (indiceGiro < 0){
@@ -187,23 +188,23 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
                 indiceGiro--;
             }
         } else if(giro == "derecha"){
-            if (indiceGiro < 0 || Math.abs(indiceGiro)  <= raceCityCarImages.moverDerecha.length){
+            if (indiceGiro < 0 || Math.abs(indiceGiro)  <= result.moverDerecha.length){
                 indiceGiro++;
             }
         } else if(giro == "izquierda"){
-            if (indiceGiro > 0 || Math.abs(indiceGiro)  <= raceCityCarImages.moverIzquierda.length){
+            if (indiceGiro > 0 || Math.abs(indiceGiro)  <= result.moverIzquierda.length){
                 indiceGiro--;
             }
         }
 
         if (indiceGiro > 0){
             realIndex = Math.ceil(indiceGiro/ciclosPorEtapa) + (indice % 2) - 1;
-            result = raceCityCarImages.moverDerecha[realIndex];
+            result = result.moverDerecha[realIndex];
         } else if(indiceGiro < 0){
             realIndex = Math.ceil(Math.abs(indiceGiro)/ciclosPorEtapa) + (indice % 2) - 1;
-            result = raceCityCarImages.moverIzquierda[realIndex];
+            result = result.moverIzquierda[realIndex];
         } else {
-            result =  raceCityCarImages.autoRecto[indice % 2];
+            result =  result.autoRecto[indice % 2];
         }
         return result;
     };
@@ -335,9 +336,9 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
         // renderizo la pista actual
         var pista = raceCityRoad.obtener_imagen(indice);
         ctx.drawImage(pista,0,217,tvLargo,(tvAncho/2)-217);
-        ctx.font = "50px Arial";
+        ctx.font = "bold 30px Symtext";
         var mapaDistancia = raceCityRoad.pista_total.length - progreso ;
-        ctx.fillText('DISTANCIA: '+ mapaDistancia,70,280);
+        ctx.fillText('DISTANCIA: '+ mapaDistancia,1600,50);
 
         if (progreso > current_hongo[1]){
             if ((progreso - current_hongo[1]) < 59){
@@ -360,7 +361,7 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
             }
         })
         // renderizo el carro
-        if (progreso < competidores[0].getPosicionY()){
+        if (progreso <= competidores[0].getPosicionY()){
             //console.log('indice',indice);
             dibujarCarro(indice, pista);
             if (mapaDistancia == 1){
@@ -433,10 +434,15 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
         dibujar(progreso);
 
         progreso++;
-        ctx.font = "bold 30px sans-serif";
+        ctx.font = "bold 30px Symtext";
         ctx.fillText("Velocidad Actual: "+velocidadActual,50,50);
         if(progreso >= raceCityRoad.pista_total.length ){
             // termino!!
+            if (progreso > competidores[0].getProgreso()){
+                ctx.font = "bold 80px Symtext";
+                ctx.fillStyle = 'yellow';
+                ctx.fillText("GANASTE ", 760,270);
+            }
             return;
         }
 
@@ -500,6 +506,10 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
     var getId = function () {
         return id;
     };
+    var getProgreso = function () {
+        return progreso;
+    };
+
 
     var setObjetoVisibilidad = function(valor){
         objetoVisibilidad = valor;
@@ -518,6 +528,7 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
         setCompetidores: setCompetidores,
         getPosicionX: getPosicionX,
         getPosicionY: getPosicionY,
+        getProgreso: getProgreso,
         setPosicionX: setPosicionX,
         //NUEVOS
         setearColor: setearColor,
