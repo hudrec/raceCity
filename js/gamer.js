@@ -292,7 +292,8 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
         var diferenciaY = Math.abs(280 - y);
         //console.log('diferencia x '+ diferenciaX+', size'+size);
 
-        if(posicionX < 0) {
+
+        if((960+posicionX-largo/2) <= x) {
             //escenario de arriba
             if(diferenciaX <= largo && diferenciaY <= size ){
                 ctx.font = "bold 30px sans-serif";
@@ -302,6 +303,7 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
                 contadorHoguito +=1;
                 competidores[0].setObjetoVisibilidad(honguito[1]);
                 console.log('colisiono');
+
 
             }
 
@@ -368,20 +370,6 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
         ctx.fillText('DISTANCIA: '+ mapaDistancia,1600,50);
         //console.log(progreso,honguito[1]);
 
-        if (progreso > honguito[1]){
-            if (((progreso - honguito[1]) < 59) && (visibilidadHonguito[honguito[1]])){
-                dibujarObjeto(ctx);
-
-            }
-            else{
-                ubicacion_objetos.find(function(posObstaculo){
-                    if (posObstaculo[1] == progreso){
-                        honguito = posObstaculo;
-                    }
-                })
-            }
-
-        }
 
         // ubicacion_objetos.find(function(posObstaculo){
         //     if (posObstaculo[1] == progreso && visibilidadHonguito[honguito] == true){
@@ -405,6 +393,20 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
             dibujarCarro(indice, pista);
         }
 
+        if (progreso > honguito[1]){
+            if (((progreso - honguito[1]) < 59) && (visibilidadHonguito[honguito[1]])){
+                dibujarObjeto(ctx);
+
+            }
+            else{
+                ubicacion_objetos.find(function(posObstaculo){
+                    if (posObstaculo[1] == progreso){
+                        honguito = posObstaculo;
+                    }
+                })
+            }
+
+        }
 
 
     };
