@@ -40,7 +40,6 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
     var honguito = current_hongo;
     var visibilidadHonguito = [];
     var contadorHoguito = 0;
-    //console.log(ubicacion_objetos);
     for(var i = 0; i < ubicacion_objetos.length; i++){
         visibilidadHonguito[ubicacion_objetos[i][1]] = true;
     }
@@ -62,7 +61,7 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
     var velocidadActual = 0;
     var velocidadMinima = 20;
     var velocidadMaxima = 100;
-    var velocidadIncremento = 10;
+    var velocidadIncremento = 5;
     var arranco = false;
     var estaAcelerando = false;
 
@@ -98,19 +97,20 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
                 estaAcelerando = true;
             }
 
-        }else{
-            // if(contadorHoguito > 0) {
-            //     progreso += 1;
-            //     contadorHoguito -= 1;
-            // }
-            if(contadorHoguito > 0) {
-                progreso += 2;
-                contadorHoguito -=1;
-            }
-
-
         }
     };
+
+    var incremento = function(){
+        if(contadorHoguito > 0) {
+            estaAcelerando = true;
+            contadorHoguito -= 1;
+            velocidadMaxima = 130;
+            setTimeout(function(){
+                estaAcelerando = false;
+                velocidadMaxima = 100
+            }, 300);
+        }
+    }
 
     var acelerar = function() {
         if (!estaAcelerando){
@@ -151,6 +151,9 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
                 case 39:
                     moverDerecha();
                     break;
+                case 36:
+                    incremento();
+                    break;
             }
         });
 
@@ -158,11 +161,14 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
             var tecla = evt.which;
             switch (tecla){
                 case 38:
-                    arrancar();
+                    acelerar();
                     break;
                 case 37:
                 case 39:
                     moverRecto();
+                    break;
+                case 38:
+                    acelerar();
                     break;
             }
         });
@@ -182,26 +188,29 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
                 case 68:
                     moverDerecha();
                     break;
+                case 83:
+                    incremento();
+                    break;
             }
         });
 
-        document.addEventListener('keyup', function(evt){
-            var tecla = evt.which;
-            switch (tecla){
-                case 87:
-                    arrancar();
-                    break;
-                case 65:
-                case 68:
-                    moverRecto();
-                    break;
-            }
-        });
+        // document.addEventListener('keyup', function(evt){
+        //     var tecla = evt.which;
+        //     switch (tecla){
+        //         case 87:
+        //             arrancar();
+        //             break;
+        //         case 65:
+        //         case 68:
+        //             moverRecto();
+        //             break;
+        //     }
+        // });
     };
 
     var imagenCarro = function(indice) {
         var ciclosPorEtapa = 2;
-        var result = new raceCityCarImages(color);
+        var result =raceCityCarImages(color) ;
         var realIndex;
         if(giro == ""){
             if (indiceGiro < 0){
@@ -210,24 +219,25 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
                 indiceGiro--;
             }
         } else if(giro == "derecha"){
-            if (indiceGiro < 0 || Math.abs(indiceGiro)  <= result.moverDerecha.length){
+            if (indiceGiro < 0 || Math.abs(indiceGiro)  <= raceCityCarImages(color).moverDerecha.length){
                 indiceGiro++;
             }
         } else if(giro == "izquierda"){
-            if (indiceGiro > 0 || Math.abs(indiceGiro)  <= result.moverIzquierda.length){
+            if (indiceGiro > 0 || Math.abs(indiceGiro)  <= raceCityCarImages(color).moverIzquierda.length){
                 indiceGiro--;
             }
         }
 
         if (indiceGiro > 0){
             realIndex = Math.ceil(indiceGiro/ciclosPorEtapa) + (indice % 2) - 1;
-            result = result.moverDerecha[realIndex];
+            result = raceCityCarImages(color).moverDerecha[realIndex];
         } else if(indiceGiro < 0){
             realIndex = Math.ceil(Math.abs(indiceGiro)/ciclosPorEtapa) + (indice % 2) - 1;
-            result = result.moverIzquierda[realIndex];
+            result = raceCityCarImages(color).moverIzquierda[realIndex];
         } else {
-            result =  result.autoRecto[indice % 2];
+            result =  raceCityCarImages(color).autoRecto[indice % 2];
         }
+
         return result;
     };
 
@@ -238,10 +248,9 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
         var carPosX = 960+posicionX-largo/2;
         var carPosY = pista.height/2+150;
         if (carPosY < 541){
-            ctx.drawImage(car, 960+posicionX-largo/2 ,pista.height/2+150, largo, ancho);
+            ctx.drawImage(car, carPosX ,carPosY, largo, ancho);
+
         }
-
-
     };
 
     var dibujarComoCompetidor = function(contexto, pos){
@@ -286,12 +295,9 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
         var car = imagenCarro(indice);
         var largo = car.width*carScale;
         var pista = raceCityRoad.obtener_imagen(indice);
-        //console.log('posicion x: '+(960+posicionX-largo/2)+'- '+x+' = '+size);
-        //console.log('posicion y: '+(pista.height/2+150)+'- '+y+' = '+size);
 
         var diferenciaX = Math.abs((960+posicionX-largo/2) - x);
         var diferenciaY = Math.abs(280 - y);
-        //console.log('diferencia x '+ diferenciaX+', size'+size);
 
 
         if((960+posicionX-largo/2) <= x) {
@@ -303,7 +309,6 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
                 visibilidadHonguito[honguito[1]] = false;
                 contadorHoguito +=1;
                 competidores[0].setObjetoVisibilidad(honguito[1]);
-                console.log('colisiono');
 
 
             }
@@ -317,7 +322,6 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
                 visibilidadHonguito[honguito[1]] = false;
                 contadorHoguito +=1;
                 competidores[0].setObjetoVisibilidad(honguito[1]);
-                console.log('colisiono');
             }
         }
 
@@ -369,17 +373,7 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
         ctx.font = "bold 30px Symtext";
         var mapaDistancia = raceCityRoad.pista_total.length - progreso ;
         ctx.fillText('DISTANCIA: '+ mapaDistancia,1600,50);
-        //console.log(progreso,honguito[1]);
-
-
-        // ubicacion_objetos.find(function(posObstaculo){
-        //     if (posObstaculo[1] == progreso && visibilidadHonguito[honguito] == true){
-        //         dibujarObjeto(ctx);
-        //     }
-        // })
-        // renderizo el carro
         if (progreso <= competidores[0].getPosicionY()){
-            //console.log('indice',indice);
             dibujarCarro(indice, pista);
             if (mapaDistancia == 1){
                 //DIBUJAR EL CARRO SALIENDO DE LA PISTA
@@ -473,9 +467,10 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
         progreso++;
         ctx.font = "bold 30px Symtext";
         ctx.fillText("Velocidad Actual: "+velocidadActual,50,50);
-        ctx.fillText("Num. honguitos: "+contadorHoguito,1600,100);
+        ctx.fillText("Estrellas: "+contadorHoguito,1600,100);
         if(progreso >= raceCityRoad.pista_total.length ){
             // termino!!
+            console.log('data');
             if (progreso > competidores[0].getProgreso()){
                 ctx.font = "bold 80px Symtext";
                 ctx.fillStyle = 'yellow';
@@ -491,6 +486,9 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
             velocidadActual -= velocidadIncremento;
         }
 
+        if( velocidadActual > velocidadMaxima){
+            velocidadActual -= 2;
+        }
         if (velocidadActual > 0){
             setTimeout(jugar, 130 - velocidadActual);
         }
@@ -563,7 +561,7 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
         jugar: jugar,
         moverIzquierda: moverIzquierda,
         moverDerecha: moverDerecha,
-
+        moverRecto: moverRecto,
         arrancar: arrancar,
         useKeyboard: useKeyboard,
         useAlternateKeyboard: useAlternateKeyboard,

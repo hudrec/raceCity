@@ -83,11 +83,10 @@ var longitud_objetos = Math.trunc(longitud_total/100);
 var ubicacion_objetos = [];
 
 for(var m=0; m< longitud_objetos; m++) {
-    var yRandom = Math.trunc(Math.random() * (longitud_total));
+    var yRandom = Math.trunc(Math.random() * (101) + 100*(m));
     var xRandom = Math.trunc(Math.random() * (90))*(Math.random() < 0.5 ? -1 : 1)
     ubicacion_objetos.push([xRandom, yRandom]);
 }
-//console.log('objetos',ubicacion_objetos)
 
 ubicacion_objetos.sort(function(a,b){return a[1]-b[1]});
 

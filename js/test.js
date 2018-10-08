@@ -19,8 +19,8 @@ function init(){
         nuevoJugador1.setCompetidores([nuevoJugador2]);
         nuevoJugador2.setCompetidores([nuevoJugador1]);
 
-        nuevoJugador1.dibujar(19);
-        nuevoJugador2.dibujar(20);
+        // nuevoJugador1.dibujar(0);
+        // nuevoJugador2.dibujar(0);
 
         nuevoJugador1.useAlternateKeyboard();
         nuevoJugador1.jugar();
