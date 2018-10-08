@@ -55,7 +55,7 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
     var indiceGiro = 0; //cambia de frame cuando gira (de 0 a 3)
     var giro = ""; // "derecha" / "izquierda"
 
-    var carScale=0.7;
+    var carScale=0.9;
 
     //manejo de la aceleracion
     var velocidadActual = 0;
@@ -194,18 +194,18 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
             }
         });
 
-        // document.addEventListener('keyup', function(evt){
-        //     var tecla = evt.which;
-        //     switch (tecla){
-        //         case 87:
-        //             arrancar();
-        //             break;
-        //         case 65:
-        //         case 68:
-        //             moverRecto();
-        //             break;
-        //     }
-        // });
+        document.addEventListener('keyup', function(evt){
+            var tecla = evt.which;
+            switch (tecla){
+                case 87:
+                    arrancar();
+                    break;
+                case 65:
+                case 68:
+                    moverRecto();
+                    break;
+            }
+        });
     };
 
     var imagenCarro = function(indice) {
@@ -376,6 +376,7 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
         if (progreso <= competidores[0].getPosicionY()){
             dibujarCarro(indice, pista);
             if (mapaDistancia == 1){
+
                 //DIBUJAR EL CARRO SALIENDO DE LA PISTA
             }
 
@@ -472,9 +473,20 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
             // termino!!
             console.log('data');
             if (progreso > competidores[0].getProgreso()){
-                ctx.font = "bold 80px Symtext";
-                ctx.fillStyle = 'yellow';
-                ctx.fillText("GANASTE ", 760,270);
+                var ganaste = new Image();
+                ganaste.src = "img/ganaste.png";
+                ganaste.onload = function(){
+                    ctx.drawImage(ganaste, 760,200, ganaste.width*0.3,ganaste.height*0.3)
+                }
+                // var car = imagenCarro(indice);
+                // for(var i = 0; i < 10; i++)
+                // {
+                //     var largo = car.width*(carScale - i/10);
+                //     var ancho = car.height*(carScale - i/10);
+                //     var carPosX = 960+posicionX-largo/2;
+                //     var carPosY = pista.height/2-(15*i);
+                //     ctx.drawImage(car, carPosX ,carPosY, largo, ancho);
+                // }
             }
             return;
         }
