@@ -57,6 +57,7 @@ window.onload = function () {
                 if(data.from === jugadores[0].getId()){
                     jugadores[0].moverIzquierda();
 
+
                 }
                 else{
                     jugadores[1].moverIzquierda();
@@ -77,6 +78,8 @@ window.onload = function () {
 
                 }
             }
+            jugadores[0].moverRecto();
+            jugadores[1].moverRecto();
         }
     });
     window.connectManager.init();

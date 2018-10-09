@@ -157,21 +157,21 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
             }
         });
 
-        // document.addEventListener('keyup', function(evt){
-        //     var tecla = evt.which;
-        //     switch (tecla){
-        //         case 38:
-        //             acelerar();
-        //             break;
-        //         case 37:
-        //         case 39:
-        //             moverRecto();
-        //             break;
-        //         case 38:
-        //             acelerar();
-        //             break;
-        //     }
-        // });
+        document.addEventListener('keyup', function(evt){
+            var tecla = evt.which;
+            switch (tecla){
+                case 38:
+                    acelerar();
+                    break;
+                case 37:
+                case 39:
+                    moverRecto();
+                    break;
+                case 38:
+                    acelerar();
+                    break;
+            }
+        });
     };
 
     var useAlternateKeyboard = function(){
@@ -467,9 +467,10 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
         progreso++;
         ctx.font = "bold 30px Symtext";
         ctx.fillText("Velocidad Actual: "+velocidadActual,50,50);
-        ctx.fillText("Num. honguitos: "+contadorHoguito,1600,100);
+        ctx.fillText("Estrellas: "+contadorHoguito,1600,100);
         if(progreso >= raceCityRoad.pista_total.length ){
             // termino!!
+            console.log('data');
             if (progreso > competidores[0].getProgreso()){
                 ctx.font = "bold 80px Symtext";
                 ctx.fillStyle = 'yellow';
@@ -560,7 +561,7 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
         jugar: jugar,
         moverIzquierda: moverIzquierda,
         moverDerecha: moverDerecha,
-
+        moverRecto: moverRecto,
         arrancar: arrancar,
         useKeyboard: useKeyboard,
         useAlternateKeyboard: useAlternateKeyboard,
