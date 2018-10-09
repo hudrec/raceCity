@@ -18,13 +18,14 @@ window.onload = function () {
     // SE DIBUJA LA PANTALLA DE ESPERANDO JUGADORES
 
 
-    document.body.style.backgroundImage='none';
-    $("body").css('background-image','url("img/esperando.png")');
+    // document.body.style.backgroundImage='none';
+    // $("body").css('background-image','url("img/esperando.png")');
 
     // MAIN CTX
     ctx = document.getElementById("auto").getContext("2d");
-    ctx.font = '60px Symtext';
+    ctx.font = '80px Symtext';
     ctx.fillStyle = "#fff";
+    ctx.fillText('ESPERANDO JUGADORES ...',460,750);
 
     //INICIA EL CONNECT SDK
     window.connectManager = new connectsdk.ConnectManager();
@@ -35,6 +36,7 @@ window.onload = function () {
         if(data.message.accion === "conectarJugador")
         {
             if(jugadores.length === 0){
+                ctx.clearRect(0, 0, 1920,1080);
                 $("body").css('background-image', 'url("img/fondotv.png")');
             }
             conectarJugador(data.message.nombre, data.message.color, data.from);

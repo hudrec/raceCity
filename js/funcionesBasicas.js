@@ -12,9 +12,12 @@ function empezar(){
         
     setTimeout(function(){
         ctx.clearRect(0, 0, tvLargo,tvAncho/2);
+        var snd = new Audio("Cuenta.mp3");
+        snd.play();
         //jugador1.dibujar(0);
         jugador1.jugar();
         jugador2.jugar();
+
         setTimeout(function(){
             jugador1.arrancar();
             jugador2.arrancar();
@@ -32,9 +35,9 @@ function dibujarChofer(indice){
 
     var playerImage = jugadores[indice].getImagenJugador();
     playerImage.onload = function() {
-        ctx.drawImage(playerImage, 960*indice + 250,40,320,300);
+        ctx.drawImage(playerImage, 960*indice + 250,100,320,300);
     };
-    ctx.fillText(jugadores[indice].getNombre(),960*indice + 320,500);
+    ctx.fillText(jugadores[indice].getNombre(),960*indice + 320,550);
     // ctx.fillText(ctx.canvas.height + ' - ' + ctx.canvas.width,960*indice + 320,500);
 
 }
@@ -43,21 +46,21 @@ function irSalaDeEspera() {
     // ctx = document.getElementById("auto").getContext("2d");
     dibujarChofer(jugadores.length - 1);
 
-    if(jugadores.length < 2){
-        //BOTON INICIAR
-        var iniciar = new Image();
-        iniciar.src = "img/forms/iniciar.png";
-        iniciar.onload = function () {
-            ctx.drawImage(iniciar, 720, 710,480,100);
-        };
-    
-        //BOTON OPCIONES
-        var opciones = new Image();
-        opciones.src = "img/forms/opciones.png";
-        opciones.onload = function () {
-            ctx.drawImage(opciones, 720, 850,480,100);
-        };
-    }
+    // if(jugadores.length < 2){
+    //     //BOTON INICIAR
+    //     var iniciar = new Image();
+    //     iniciar.src = "img/forms/iniciar.png";
+    //     iniciar.onload = function () {
+    //         ctx.drawImage(iniciar, 720, 710,480,100);
+    //     };
+    //
+    //     //BOTON OPCIONES
+    //     var opciones = new Image();
+    //     opciones.src = "img/forms/opciones.png";
+    //     opciones.onload = function () {
+    //         ctx.drawImage(opciones, 720, 850,480,100);
+    //     };
+    // }
     
 }
 
