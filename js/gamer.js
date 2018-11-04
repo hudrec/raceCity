@@ -1,6 +1,6 @@
 var tvLargo = 1920;
 var tvAncho = 1080;
-var snd = new Audio("sound.mp3");
+var snd = new Audio("cars.mp3");
 
 var raceCityCarImages = function(color){
     // var color = 'azul';
@@ -35,6 +35,8 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
     var color = jcolor;
     var id = idJugador;
     var progreso = 20;
+    var posX = 0;
+    var largoCarro = 0;
 
     //obstaculos
     var honguito = current_hongo;
@@ -246,6 +248,8 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
         var largo = car.width*carScale;
         var ancho = car.height*carScale;
         var carPosX = 960+posicionX-largo/2;
+        posX = 960+posicionX-largo/2;
+        largoCarro = largo;
         var carPosY = pista.height/2+150;
         if (carPosY < 541){
             ctx.drawImage(car, carPosX ,carPosY, largo, ancho);
@@ -436,9 +440,9 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
 
     };
 
-    var calcularColision = function() {
+    var calcularColision = function(indice) {
 
-        for (var i=0; i<competidores.length; i++){
+        /*for (var i=0; i<competidores.length; i++){
             var diferenciaX = Math.abs(posicionX - competidores[i].getPosicionX());
             var diferenciaY =  Math.abs(progreso - competidores[i].getPosicionY());
 
@@ -455,6 +459,57 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
 
                 //competidores[i].moverDerecha();
             }
+        }*/
+
+
+        var diferenciaX = Math.abs(posX - competidores[0].getPosX());
+        var diferenciaY =  Math.abs(progreso - competidores[0].getPosicionY());
+
+        console.log(posicionX);
+        if (posX <= competidores[0].getPosX()) {
+            if (diferenciaX < largoCarro && diferenciaY < minDistanciaChoqueY) {
+                snd.play();
+
+                /*if(progreso<=distanciaRebote){
+                    progreso = distanciaRebote +1;
+                }
+                //progreso -= distanciaRebote;
+                console.log(posicionX);
+                if(posicionX < 0) {
+                    posicionX += 50;
+                } else {
+                    posicionX -= 50;
+                }
+
+                if(competidores[0].getPosX() < 0) {
+                    competidores[0].setPosicionX(competidores[0].getPosicionX() - 50);
+                } else {
+                    competidores[0].setPosicionX(competidores[0].getPosicionX() + 50);
+                }*/
+
+                moverIzquierda();
+                competidores[0].moverDerecha();
+
+                //competidores[i].moverDerecha();
+            }
+
+        } else {
+
+            if(diferenciaX < competidores[0].getLargoCarro() && diferenciaY < minDistanciaChoqueY) {
+                snd.play();
+
+                /*if(progreso<=distanciaRebote){
+                    progreso = distanciaRebote +1;
+                }
+                //progreso -= distanciaRebote;
+                posicionX -= 50;
+                competidores[0].setPosicionX(competidores[0].getPosicionX() + 50);
+
+                //competidores[i].moverDerecha();*/
+                moverDerecha();
+                competidores[0].moverIzquierda();
+            }
+
         }
     };
 
@@ -504,7 +559,7 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
         if (velocidadActual > 0){
             setTimeout(jugar, 130 - velocidadActual);
         }
-        calcularColision();
+        calcularColision(progreso);
     };
 
     var getPosicionX = function() {
@@ -558,6 +613,14 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
         return progreso;
     };
 
+    var getPosX = function () {
+        return posX;
+    };
+
+    var getLargoCarro = function () {
+        return largoCarro;
+    };
+
 
     var setObjetoVisibilidad = function(valor){
         visibilidadHonguito[valor] = false;
@@ -591,6 +654,8 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
         getNombre: getNombre,
         getId: getId,
         setObjetoVisibilidad: setObjetoVisibilidad,
-        getCurrentHongo: getCurrentHongo
+        getCurrentHongo: getCurrentHongo,
+        getPosX: getPosX,
+        getLargoCarro: getLargoCarro
     }
 };
