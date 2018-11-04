@@ -69,7 +69,7 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
     var contadorChoque = 0;
     var penalidadChoque = 10; // nro turnos desacelerado
     var distanciaRebote = 6;
-    var minDistanciaChoqueX = 130; //100
+    var minDistanciaChoqueX = 20; //100
     var minDistanciaChoqueY = 6.5; //-3
 
     // limites de la pista
@@ -108,7 +108,7 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
             setTimeout(function(){
                 estaAcelerando = false;
                 velocidadMaxima = 100
-            }, 300);
+            }, 1000);
         }
     }
 
@@ -439,7 +439,8 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
     var calcularColision = function() {
 
         for (var i=0; i<competidores.length; i++){
-            var diferenciaX = Math.abs(posicionX - competidores[i].getPosicionX());
+            var car = imagenCarro(progreso);
+            var diferenciaX = Math.abs(posicionX +  car.width  - competidores[i].getPosicionX());
             var diferenciaY =  Math.abs(progreso - competidores[i].getPosicionY());
 
             if(diferenciaX < minDistanciaChoqueX &&
@@ -461,8 +462,15 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
     var jugar = function() {
         document.body.style.backgroundImage='none';
         // logica de la pista
-        logicaDePista();
-
+        try{
+            logicaDePista();
+        }
+        catch(e){
+            ctx = document.getElementById("auto").getContext("2d");
+            ctx.font = "bold 30px Symtext ";
+            ctx.fillStyle = "#fff";
+            ctx.fillText(e.message,800,520);
+        }
         dibujar(progreso);
 
         progreso++;
@@ -471,7 +479,7 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
         ctx.fillText("Estrellas: "+contadorHoguito,1600,100);
         if(progreso >= raceCityRoad.pista_total.length ){
             // termino!!
-            console.log('data');
+            //console.log('data');
             if (progreso > competidores[0].getProgreso()){
                 var ganaste = new Image();
                 ganaste.src = "img/ganaste.png";
@@ -571,6 +579,7 @@ var raceCityJugador = function(ctx,idJugador,nombre, jcolor, initialPos){
         dibujar: dibujar,
         dibujarComoCompetidor: dibujarComoCompetidor,
         jugar: jugar,
+        incremento: incremento,
         moverIzquierda: moverIzquierda,
         moverDerecha: moverDerecha,
         moverRecto: moverRecto,

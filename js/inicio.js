@@ -3,8 +3,6 @@
 //------------------------------------------------------------------------------------------
 //DATOS DE JUGADORES
 var jugadores = new Array();
-
-
 //------------------------------------------------------------------------------------------
 // FIN SECCION VARIABLES GLOBALES
 //------------------------------------------------------------------------------------------
@@ -16,17 +14,13 @@ var jugadores = new Array();
 
 window.onload = function () {
     // SE DIBUJA LA PANTALLA DE ESPERANDO JUGADORES
-
-
-    // document.body.style.backgroundImage='none';
-    // $("body").css('background-image','url("img/esperando.png")');
-
     // MAIN CTX
-    ctx = document.getElementById("auto").getContext("2d");
+    var ctx = document.getElementById("auto").getContext("2d");
     ctx.font = '80px Symtext';
     ctx.fillStyle = "#fff";
-    ctx.fillText('ESPERANDO JUGADORES ...',460,750);
-
+    setTimeout(function(){
+        ctx.fillText('ESPERANDO JUGADORES ...',460,750);
+    },3000);
     //INICIA EL CONNECT SDK
     window.connectManager = new connectsdk.ConnectManager();
 
@@ -82,6 +76,18 @@ window.onload = function () {
             }
             jugadores[0].moverRecto();
             jugadores[1].moverRecto();
+        }
+        if(data.message.accion === "enviarAceleracion"){
+            if (data.message.aceleracion === "aceleracion"){
+                if(data.from.toString() === jugadores[0].getId().toString()) {
+                    jugadores[0].incremento();
+
+                }
+                else{
+                    jugadores[1].incremento()
+                }
+
+            }
         }
     });
     window.connectManager.init();
